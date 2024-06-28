@@ -3,29 +3,7 @@ import { Disclosure } from "@headlessui/react";
 import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 import { buttonVariants } from "../ui/button";
 import Link from "next/link";
-
-const faqs = [
-  {
-    question: "What is this platform?",
-    answer:
-      "Our platform is a website where you can create and share memories with your loved ones.",
-  },
-  {
-    question: "How do I get started?",
-    answer:
-      "To get started, simply sign up for an account and start uploading your memories.",
-  },
-  {
-    question: "Is my data safe?",
-    answer:
-      "We take data security seriously and have implemented measures to ensure your information is protected.",
-  },
-  {
-    question: "How can I contact support?",
-    answer:
-      "If you need assistance, you can reach our support team through the contact information provided.",
-  },
-];
+import { faqs } from "@/constants";
 
 export default function HomeFaqs() {
   return (

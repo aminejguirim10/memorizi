@@ -93,3 +93,27 @@ export const reviews = [
     img: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
   },
 ];
+
+export const faqs = [
+  {
+    question: "What is this platform?",
+    answer:
+      "Our platform is a website where you can create and share memories with your loved ones.",
+  },
+  {
+    question: "How do I get started?",
+    answer:
+      "To get started, simply sign up for an account and start uploading your memories.",
+  },
+  {
+    question: "Is my data safe?",
+    answer:
+      "We take data security seriously and have implemented measures to ensure your information is protected.",
+  },
+  {
+    question: "How can I contact support?",
+    answer:
+      "If you need assistance, you can reach our support team through the contact information provided.",
+  },
+];
+
