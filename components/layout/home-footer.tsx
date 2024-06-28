@@ -1,6 +1,6 @@
 import { Icons } from "@/components/shared/icons";
 
-const navigation = [
+const navigations = [
   {
     name: "Facebook",
     href: "https://www.facebook.com/amine.jguirim10/",
@@ -48,7 +48,7 @@ export default function HomeFooter() {
     <footer className="pt-12 md:pb-2">
       <div className="mx-auto max-w-7xl px-6 py-4 md:flex md:items-center md:justify-between lg:px-8 border-t border-t-gray-400">
         <div className="flex justify-center space-x-6 md:order-2">
-          {navigation.map((item) => (
+          {navigations.map((item) => (
             <a key={item.name} href={item.href} className={"text-gray-400"}>
               <span className="sr-only">{item.name}</span>
               {item.icon}

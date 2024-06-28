@@ -116,4 +116,3 @@ export const faqs = [
       "If you need assistance, you can reach our support team through the contact information provided.",
   },
 ];
-

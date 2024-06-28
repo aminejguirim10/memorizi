@@ -1,9 +1,37 @@
-import Link from "next/link";
-import { Icons } from "@/components/shared/icons";
-import { buttonVariants } from "@/components/ui/button";
+"use client";
+
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+import gsap from "gsap";
 import { HomeFeaturesItems } from "@/constants";
+import { HomeFeatureItem } from "@/components/app/home-feature-item";
 
 const HomeFeatures = () => {
+  useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    HomeFeaturesItems.forEach((feature, index) => {
+      gsap.fromTo(
+        `.home-feature-item-${index}`,
+        {
+          opacity: 0,
+          y: 20,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: `.home-feature-item-${index}`,
+            start: "top 80%", // Start the animation when the element is 80% into view
+            end: "bottom top", // End the animation when the element goes out of view
+            toggleActions: "play none none none", // Trigger the animation only once
+          },
+        }
+      );
+    });
+  }, []);
+
   return (
     <section
       id="features"
@@ -21,6 +49,7 @@ const HomeFeatures = () => {
             subTitle={feature.subTitle}
             buttonTitle={feature.buttonTitle}
             link={feature.link}
+            index={i}
           />
         ))}
       </div>
@@ -29,42 +58,3 @@ const HomeFeatures = () => {
 };
 
 export default HomeFeatures;
-
-const HomeFeatureItem = ({
-  title,
-  subTitle,
-  icon: Icon,
-  buttonTitle,
-  link,
-}: {
-  title: string;
-  subTitle: string;
-  icon: any;
-  buttonTitle: string;
-  link: string;
-}) => {
-  return (
-    <div className="flex gap-6 max-md:gap-4 ">
-      <div>
-        <Icon className="size-5 sm:size-6 text-[#FA6B23] max-md:mt-1" />
-      </div>
-      <div className="flex flex-col gap-3 md:gap-4 items-start">
-        <h2 className="text-xl max-md:text-lg font-semibold flex-1">{title}</h2>
-        <p className="text-muted-foreground max-w-[300px] max-md:text-sm flex-1">
-          {subTitle}
-        </p>
-        <Link
-          href={link}
-          className={buttonVariants({
-            variant: "outline",
-            className: "w-fit flex gap-2 items-center",
-            size: "sm",
-          })}
-        >
-          <span>{buttonTitle}</span>
-          <Icons.chevronRight className="size-4" />
-        </Link>
-      </div>
-    </div>
-  );
-};
