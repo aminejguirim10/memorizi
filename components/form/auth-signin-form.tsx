@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { authSignInSchema } from "@/lib/schema";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";

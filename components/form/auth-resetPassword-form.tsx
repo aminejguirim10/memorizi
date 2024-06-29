@@ -1,11 +1,9 @@
 "use client";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
-import { authSignUpSchema } from "@/lib/schema";
 import { Button } from "@/components/ui/button";
+
 import {
   Form,
   FormControl,
@@ -15,71 +13,99 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Icons } from "@/components/shared/icons";
-import { createUser } from "@/actions/user.actions";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { authResetPasswordSchema } from "@/lib/schema";
+import { Icons } from "@/components/shared/icons";
+import { resetPassword } from "@/actions/user.actions";
 import confetti from "canvas-confetti";
 
-const AuthSignUpForm = () => {
+const AuthResetPasswordForm = ({
+  id,
+  token,
+}: {
+  id: string;
+  token: string;
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
-  const form = useForm<z.infer<typeof authSignUpSchema>>({
-    resolver: zodResolver(authSignUpSchema),
+  const form = useForm<z.infer<typeof authResetPasswordSchema>>({
+    resolver: zodResolver(authResetPasswordSchema),
     defaultValues: {
-      username: "",
-      email: "",
       password: "",
     },
   });
 
   const handleClick = useCallback(() => {
-    const end = Date.now() + 3 * 1000; // 3 seconds
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
     const colors = ["#a786ff", "#fd8bbc", "#fac823", "#fb8f23"];
 
-    const frame = () => {
-      if (Date.now() > end) return;
+    const randomInRange = (min: number, max: number) =>
+      Math.random() * (max - min) + min;
 
+    const interval = window.setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
       confetti({
-        particleCount: 4,
-        angle: 60,
-        spread: 55,
-        startVelocity: 60,
-        origin: { x: 0, y: 0.5 },
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
         colors: colors,
       });
       confetti({
-        particleCount: 4,
-        angle: 120,
-        spread: 55,
-        startVelocity: 60,
-        origin: { x: 1, y: 0.5 },
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
         colors: colors,
       });
-
-      requestAnimationFrame(frame);
-    };
-
-    frame();
+    }, 250);
   }, []);
-  function onSubmit(values: z.infer<typeof authSignUpSchema>) {
+  function onSubmit(values: z.infer<typeof authResetPasswordSchema>) {
     const handleSubmit = async () => {
       setLoading(true);
-      const response = await createUser(
-        values.email,
-        values.username,
-        values.password
-      );
-
-      if (response.status === 201) {
-        handleClick();
-        router.push("/signin");
-      } else {
+      try {
+        if (values.password !== confirmPassword) {
+          toast({
+            title: "Password mismatch",
+            description: "Password and Confirm password must match",
+            variant: "destructive",
+          });
+          setLoading(false);
+          return;
+        }
+        const response = await resetPassword(id, token, values.password);
+        if (response.status === 200) {
+          form.reset();
+          toast({
+            title: "Password updated",
+            description: "Your password has been updated",
+          });
+          handleClick();
+          router.replace("/signin");
+        } else {
+          toast({
+            title: "Error",
+            description: response.message,
+            variant: "destructive",
+          });
+        }
+      } catch (error: any) {
         toast({
-          title: "Error creating account",
-          description: "Please try again",
+          title: "Error",
+          description: error.message,
           variant: "destructive",
         });
+      } finally {
         setLoading(false);
       }
     };
@@ -90,57 +116,16 @@ const AuthSignUpForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-bold">Username</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Your username"
-                  {...field}
-                  type="text"
-                  disabled={loading}
-                />
-              </FormControl>
-              {form.formState.errors.username && (
-                <FormMessage className="text-xs" />
-              )}
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-bold">Email</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="example@gmail.com"
-                  {...field}
-                  type="email"
-                  disabled={loading}
-                />
-              </FormControl>
-              {form.formState.errors.email && (
-                <FormMessage className="text-xs" />
-              )}
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-bold">Password</FormLabel>
+              <FormLabel className="font-bold">New password</FormLabel>
               <FormControl>
                 <div className="flex items-center">
                   <Input
                     placeholder="**************"
                     {...field}
                     type={showPassword ? "text" : "password"}
-                    disabled={loading}
                   />
                   {showPassword ? (
                     <Icons.eyeSlash
@@ -161,12 +146,12 @@ const AuthSignUpForm = () => {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          variant={"auth"}
-          disabled={loading}
-          className="flex gap-3 w-full"
-        >
+        <ConfirmPassword
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
+        />
+
+        <Button type="submit" disabled={loading} className="flex gap-3 w-full">
           {loading && (
             <svg
               aria-hidden="true"
@@ -185,11 +170,44 @@ const AuthSignUpForm = () => {
               />
             </svg>
           )}
-          {loading ? "Loading" : "Sign Up"}
+          {loading ? "Loading" : "Submit"}
         </Button>
       </form>
     </Form>
   );
 };
+const ConfirmPassword = ({
+  confirmPassword,
+  setConfirmPassword,
+}: {
+  confirmPassword: string;
+  setConfirmPassword: Dispatch<SetStateAction<string>>;
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
+  return (
+    <div className="flex flex-col gap-3">
+      <FormLabel className="font-bold">Confirm Your password</FormLabel>
+      <div className="flex items-center">
+        <Input
+          placeholder="**************"
+          type={showPassword ? "text" : "password"}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        {showPassword ? (
+          <Icons.eyeSlash
+            className="-ml-8 h-5 w-5 hover:cursor-pointer"
+            onClick={() => setShowPassword((prev) => !prev)}
+          />
+        ) : (
+          <Icons.eye
+            className="-ml-8 h-5 w-5 hover:cursor-pointer"
+            onClick={() => setShowPassword((prev) => !prev)}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
 
-export default AuthSignUpForm;
+export default AuthResetPasswordForm;
