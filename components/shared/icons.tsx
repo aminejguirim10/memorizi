@@ -6,6 +6,7 @@ import {
   ImageUp,
   Waypoints,
   UserCheck,
+  ChevronLeft,
 } from "lucide-react";
 import { MdOutlineFacebook } from "react-icons/md";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin } from "react-icons/io";
@@ -29,4 +30,5 @@ export const Icons = {
   eyeSlash: FaEyeSlash,
   googleAuth: FcGoogle,
   githubAuth: FaGithub,
+  back: ChevronLeft,
 };

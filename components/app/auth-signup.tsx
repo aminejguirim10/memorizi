@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AuthProvidersButtons from "@/components/shared/auth-providers-buttons";
 import AuthSignUpForm from "@/components/form/auth-signup-form";
+import AuthBackButton from "@/components/shared/auth-back-button";
 
 export default function AuthSignUp() {
   return (
@@ -8,8 +9,11 @@ export default function AuthSignUp() {
       <div className="absolute inset-0 z-0 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#fdd8a5,transparent)]"></div>
       </div>
+
       <div className="absolute top-0 z-[-1] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]"></div>
+
       <div className="mx-auto z-10 text-gray-700 w-full max-w-[500px]">
+        <AuthBackButton />
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-normal font-geist tracking-tighter">
             Create Your Account
@@ -39,7 +43,7 @@ export default function AuthSignUp() {
             </Link>
           </p>
         </div>
-        <div className="mt-6 border-t pt-6">
+        <div className="mt-6 border-t pt-6 max-md:pb-6">
           <AuthProvidersButtons text="Sign up" />
         </div>
       </div>

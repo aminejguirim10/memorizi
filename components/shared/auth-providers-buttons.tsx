@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 import { Icons } from "@/components/shared/icons";
 const AuthProvidersButtons = ({ text }: { text: string }) => {
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="flex flex-row max-sm:flex-col items-center justify-center  gap-4">
       <Button
         className="w-full flex gap-4"
         variant={"outline"}

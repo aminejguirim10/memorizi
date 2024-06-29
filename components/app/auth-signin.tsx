@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AuthSignInForm from "@/components/form/auth-signin-form";
 import AuthProvidersButtons from "@/components/shared/auth-providers-buttons";
+import AuthBackButton from "@/components/shared/auth-back-button";
 
 export default function AuthSignIn() {
   return (
@@ -10,6 +11,7 @@ export default function AuthSignIn() {
       </div>
       <div className="absolute top-0 z-[-1] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]"></div>
       <div className="mx-auto z-10 text-gray-700 w-full max-w-[500px]">
+        <AuthBackButton />
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-normal font-geist tracking-tighter">
             Welcome back
@@ -39,7 +41,7 @@ export default function AuthSignIn() {
             </Link>
           </p>
         </div>
-        <div className="mt-6 border-t pt-6">
+        <div className="mt-6 border-t pt-6 max-md:pb-6">
           <AuthProvidersButtons text="Sign in" />
         </div>
       </div>
