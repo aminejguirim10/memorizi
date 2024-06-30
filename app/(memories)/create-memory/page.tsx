@@ -1,5 +1,7 @@
+import MemoriesCreateMemory from "@/components/app/memories-create-memory";
+
 const CreateMemoryPage = () => {
-  return <div>CreateMemoryPage</div>;
+  return <MemoriesCreateMemory />;
 };
 
 export default CreateMemoryPage;

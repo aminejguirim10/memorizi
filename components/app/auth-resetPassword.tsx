@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 
 import Meteors from "@/components/ui/meteors";
-import AuthResetPasswordForm from "../form/auth-resetPassword-form";
+import AuthResetPasswordForm from "@/components/form/auth-resetPassword-form";
 
 const AuthResetPassword = ({ id, token }: { id: string; token: string }) => {
   return (
