@@ -1,5 +1,7 @@
+import MemoriesProfile from "@/components/app/memories-profile";
+
 const ProfilePage = () => {
-  return <div>ProfilePage</div>;
+  return <MemoriesProfile />;
 };
 
 export default ProfilePage;

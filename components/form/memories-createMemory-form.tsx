@@ -57,7 +57,6 @@ const MemoriesCreateMemoryForm = () => {
     onClientUploadComplete: async (res) => {
       setUrls(res.map((file) => file.url));
       setUrlsUpdated(true);
-      console.log(res[0].url);
     },
     onUploadError: () => {
       setLoading(false);

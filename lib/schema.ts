@@ -25,3 +25,8 @@ export const authResetPasswordSchema = z.object({
     .string()
     .min(5, { message: "Password must be at least 5 characters" }),
 });
+
+export const memoriesProfileSchema = z.object({
+  name: z.string().min(3, { message: "Name must be at least 3 characters" }),
+  bio: z.string().optional(),
+});

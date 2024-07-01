@@ -2,8 +2,10 @@
 
 import prisma from "@/lib/db";
 import { resetPasswordTemplate } from "@/lib/email";
+import { ServerSession } from "@/lib/session";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { revalidatePath } from "next/cache";
 import nodemailer from "nodemailer";
 
 export const createUser = async (
@@ -89,6 +91,45 @@ export const resetPassword = async (
       data: { password: hashedPassword },
     });
     return { message: "Password updated", status: 200 };
+  } catch (error: any) {
+    return { message: error.message, status: 500 };
+  }
+};
+
+export const getUser = async () => {
+  const session = await ServerSession();
+  if (!session) {
+    return { message: "Unauthorized", status: 401 };
+  }
+  const user = await prisma.user.findUnique({
+    where: {
+      id: session.user.id,
+    },
+  });
+  return user;
+};
+
+export const updateUser = async (
+  id: string,
+  name: string,
+  description: string,
+  image: string
+) => {
+  const session = await ServerSession();
+  if (!session) {
+    return { message: "Unauthorized", status: 401 };
+  }
+  try {
+    const user = await prisma.user.update({
+      where: { id },
+      data: {
+        name,
+        description,
+        image,
+      },
+    });
+    revalidatePath("/profile");
+    return { message: "User updated", status: 200 };
   } catch (error: any) {
     return { message: error.message, status: 500 };
   }
