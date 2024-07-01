@@ -11,6 +11,10 @@ import { GlowingStarsBackgroundCard } from "@/components/ui/glowing-stars";
 import { getUser } from "@/actions/user.actions";
 
 const MemoriesProfile = async () => {
+  {
+    /* Hoping to find a way to keep the static rendering from SSG without having 
+    to call getServerSession that uses cookies and headers and make the page dynamic. */
+  }
   const user = await getUser();
   return (
     <div className="flex justify-center items-center flex-col min-h-screen bg-orange-100 ">

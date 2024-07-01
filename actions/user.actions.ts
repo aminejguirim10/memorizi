@@ -1,7 +1,11 @@
 "use server";
 
 import prisma from "@/lib/db";
-import { resetPasswordTemplate } from "@/lib/email";
+import {
+  createNewUserTeamplate,
+  resetPasswordCompletedTemplate,
+  resetPasswordTemplate,
+} from "@/lib/email";
 import { ServerSession } from "@/lib/session";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -28,6 +32,22 @@ export const createUser = async (
         name,
       },
     });
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.NODE_MAILER_AUTHOR_MAIL!,
+        pass: process.env.NODE_MAILER_SECRET!,
+      },
+    });
+    const mailOptions = {
+      from: process.env.NODE_MAILER_AUTHOR_MAIL!,
+      to: user.email!,
+      subject: "Welcome to Memorizi",
+      html: createNewUserTeamplate(user.name!),
+    };
+    await transporter.sendMail(mailOptions);
     return { message: "User created", status: 201 };
   } catch (error: any) {
     return { message: error.message, status: 500 };
@@ -44,9 +64,13 @@ export const forgotPassword = async (email: string) => {
       return { message: "Email not found", status: 404 };
     }
     const secret = process.env.JWT_SECRET! + oldUser.password;
-    const token = jwt.sign({ id: oldUser.id, email: oldUser.email }, secret, {
-      expiresIn: "15m",
-    });
+    const token = jwt.sign(
+      { id: oldUser.id, email: oldUser.email, name: oldUser.name },
+      secret,
+      {
+        expiresIn: "15m",
+      }
+    );
     const link = `${process.env.NEXTAUTH_URL}/reset-password/${oldUser.id}/${token}`;
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -84,12 +108,30 @@ export const resetPassword = async (
   }
   const secret = process.env.JWT_SECRET! + oldUser.password;
   try {
-    jwt.verify(token, secret);
+    let decoded: any;
+    decoded = jwt.verify(token, secret);
     const hashedPassword = await bcryptjs.hash(password, 10);
     await prisma.user.update({
       where: { id },
       data: { password: hashedPassword },
     });
+    const link = `${process.env.NEXTAUTH_URL}/contact`;
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.NODE_MAILER_AUTHOR_MAIL!,
+        pass: process.env.NODE_MAILER_SECRET!,
+      },
+    });
+    const mailOptions = {
+      from: process.env.NODE_MAILER_AUTHOR_MAIL!,
+      to: oldUser.email!,
+      subject: "Password reset Successful",
+      html: resetPasswordCompletedTemplate(link, oldUser.name!),
+    };
+    await transporter.sendMail(mailOptions);
     return { message: "Password updated", status: 200 };
   } catch (error: any) {
     return { message: error.message, status: 500 };

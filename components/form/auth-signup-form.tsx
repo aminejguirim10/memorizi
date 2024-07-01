@@ -74,6 +74,13 @@ const AuthSignUpForm = () => {
       if (response.status === 201) {
         handleClick();
         router.push("/signin");
+      } else if (response.status === 400) {
+        toast({
+          title: "Error creating account",
+          description: response.message,
+          variant: "destructive",
+        });
+        setLoading(false);
       } else {
         toast({
           title: "Error creating account",
