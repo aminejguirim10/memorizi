@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/db";
 import {
+  contactUserTemplate,
   createNewUserTeamplate,
   resetPasswordCompletedTemplate,
   resetPasswordTemplate,
@@ -172,6 +173,37 @@ export const updateUser = async (
     });
     revalidatePath("/profile");
     return { message: "User updated", status: 200 };
+  } catch (error: any) {
+    return { message: error.message, status: 500 };
+  }
+};
+
+export const contactUser = async (
+  firstName: string,
+  lastName: string,
+  email: string,
+  subject: string,
+  message: string
+) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.NODE_MAILER_AUTHOR_MAIL!,
+        pass: process.env.NODE_MAILER_SECRET!,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.NODE_MAILER_AUTHOR_MAIL!,
+      to: process.env.NODE_MAILER_AUTHOR_MAIL!,
+      subject: `${subject}`,
+      html: contactUserTemplate(firstName, lastName, email, message),
+    };
+    await transporter.sendMail(mailOptions);
+    return { message: "Email sent", status: 200 };
   } catch (error: any) {
     return { message: error.message, status: 500 };
   }

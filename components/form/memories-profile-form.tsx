@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { getFallback } from "@/lib/utils";
 import { User } from "@prisma/client";
 import { updateUser } from "@/actions/user.actions";
@@ -214,10 +215,12 @@ const MemoriesProfileForm = ({ user }: { user: User }) => {
                 <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Input
+                    <Textarea
+                      rows={3}
                       placeholder="Your Bio"
                       {...field}
                       disabled={loading}
+                      className="resize-none"
                     />
                   </FormControl>
                   <FormMessage />

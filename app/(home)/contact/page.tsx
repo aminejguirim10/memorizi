@@ -1,5 +1,7 @@
+import HomeContact from "@/components/app/home-contact";
+
 const ContactPage = () => {
-  return <div>ContactPage</div>;
+  return <HomeContact />;
 };
 
 export default ContactPage;
