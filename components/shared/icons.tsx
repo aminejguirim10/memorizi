@@ -8,6 +8,9 @@ import {
   UserCheck,
   ChevronLeft,
   Trash2,
+  MoreHorizontal,
+  ArrowUpDown,
+  Copy,
 } from "lucide-react";
 import { MdOutlineFacebook } from "react-icons/md";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin } from "react-icons/io";
@@ -34,4 +37,7 @@ export const Icons = {
   back: ChevronLeft,
   uploadImage: FaCloudArrowUp,
   trash: Trash2,
+  more: MoreHorizontal,
+  arrowUpDown: ArrowUpDown,
+  copy: Copy,
 };

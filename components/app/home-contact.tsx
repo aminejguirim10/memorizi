@@ -1,4 +1,3 @@
-import React from "react";
 import HomeContactForm from "@/components/form/home-contactForm";
 import WavyText from "@/components/ui/wavy-text";
 import LetterPullup from "@/components/ui/letter-pullup";
