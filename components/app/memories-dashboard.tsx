@@ -69,8 +69,8 @@ const MemoriesDashboard = async () => {
   );
   const photosPerMonth: Number[] = getPhotoCountsByMonths(photosUpdated as any);
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-[80px]">
-      <div className="flex flex-col items-center justify-center mt-8 md:mt-12">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-[80px]">
+      <div className="flex flex-col items-center justify-center pt-8 md:pt-12">
         <WavyText word="Dashboard" className="text-[#FB8F23]" />
         <LetterPullup
           words="Manage data efficiently with a concise, tool-rich overview"
