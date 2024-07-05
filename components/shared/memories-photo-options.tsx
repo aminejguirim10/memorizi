@@ -22,7 +22,7 @@ const MemoriesPhotoOptions = ({
   setIsDeleting: (value: boolean) => void;
 }) => {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center ">
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="">
           <Button variant="ghost" className="h-8 w-8 p-0">

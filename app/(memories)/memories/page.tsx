@@ -1,5 +1,7 @@
+import MemoriesHome from "@/components/app/memories-home";
+
 const MemoriesPage = () => {
-  return <div>MemoriesPage</div>;
+  return <MemoriesHome />;
 };
 
 export default MemoriesPage;

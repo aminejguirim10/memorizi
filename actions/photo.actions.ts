@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { ServerSession } from "@/lib/session";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 export const createPhotos = async (urls: string[], userId?: string) => {
   try {
     const session = await ServerSession();
@@ -22,27 +23,22 @@ export const createPhotos = async (urls: string[], userId?: string) => {
 };
 
 export const getPhotos = async () => {
-  try {
-    const session = await ServerSession();
-    if (!session) return { message: "Unauthorized", status: 401 };
-    const photos = await prisma.photo.findMany({
-      where: {
-        userId: session.user.id,
-      },
-      select: {
-        id: true,
-        url: true,
-        createdAt: true,
-      },
-    });
-    return {
-      message: "Photos fetched",
-      status: 200,
-      data: photos,
-    };
-  } catch (error: any) {
-    return { message: error.message, status: 500 };
-  }
+  const session = await ServerSession();
+  if (!session) redirect("/signin");
+  const photos = await prisma.photo.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    select: {
+      id: true,
+      url: true,
+      createdAt: true,
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+  return photos;
 };
 
 export const deletePhoto = async (id: string) => {

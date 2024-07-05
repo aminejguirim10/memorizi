@@ -11,6 +11,7 @@ import {
   MoreHorizontal,
   ArrowUpDown,
   Copy,
+  Image,
 } from "lucide-react";
 import { MdOutlineFacebook } from "react-icons/md";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin } from "react-icons/io";
@@ -40,4 +41,5 @@ export const Icons = {
   more: MoreHorizontal,
   arrowUpDown: ArrowUpDown,
   copy: Copy,
+  image: Image,
 };

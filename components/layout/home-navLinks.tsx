@@ -6,6 +6,7 @@ export function NavLinks() {
   let [hoveredIndex, setHoveredIndex] = useState<null | number>(null);
 
   return [
+    ["Memories", "/memories"],
     ["Features", "/#features"],
     ["Testimonials", "/#testimonials"],
     ["FAQs", "/#faqs"],

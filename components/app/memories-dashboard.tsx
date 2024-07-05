@@ -18,26 +18,21 @@ import MemoryBarChartsDay from "@/components/app/memory-bar-charts-day";
 import MemoryBarChartsMonth from "@/components/app/memory-bar-charts-month";
 
 const MemoriesDashboard = async () => {
-  const photos = await getPhotos();
-  const photosUpdated = photos.data?.map((photo) => {
+  const photos: any = await getPhotos();
+  const photosUpdated = photos.map((photo: any) => {
     return {
       id: photo.id,
       url: photo.url,
       date: new Date(photo.createdAt),
     };
   });
-  const numberOfPhotosUploadedToday = countPhotosUploadedToday(
-    photosUpdated as any
-  );
-  const numberOfPhotosUploadedThisWeek = countPhotosUploadedThisWeek(
-    photosUpdated as any
-  );
-  const numberOfPhotosUploadedThisMonth = countPhotosUploadedThisMonth(
-    photosUpdated as any
-  );
-  const numberOfPhotosUploadedThisYear = countPhotosUploadedThisYear(
-    photosUpdated as any
-  );
+  const numberOfPhotosUploadedToday = countPhotosUploadedToday(photosUpdated);
+  const numberOfPhotosUploadedThisWeek =
+    countPhotosUploadedThisWeek(photosUpdated);
+  const numberOfPhotosUploadedThisMonth =
+    countPhotosUploadedThisMonth(photosUpdated);
+  const numberOfPhotosUploadedThisYear =
+    countPhotosUploadedThisYear(photosUpdated);
 
   const uploads = [
     {
@@ -63,11 +58,11 @@ const MemoriesDashboard = async () => {
       color: "#4E90A5",
     },
   ];
-  const photosPerDays: Number[] = getPhotoCountsByDays(photosUpdated as any);
-  const photosPerDaysOfWeek: Number[] = getPhotoCountsByDayOfWeek(
-    photosUpdated as any
-  );
-  const photosPerMonth: Number[] = getPhotoCountsByMonths(photosUpdated as any);
+  const photosPerDays: Number[] = getPhotoCountsByDays(photosUpdated);
+  const photosPerDaysOfWeek: Number[] =
+    getPhotoCountsByDayOfWeek(photosUpdated);
+  const photosPerMonth: Number[] = getPhotoCountsByMonths(photosUpdated);
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-[80px]">
       <div className="flex flex-col items-center justify-center pt-8 md:pt-12">

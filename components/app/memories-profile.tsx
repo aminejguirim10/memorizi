@@ -19,7 +19,7 @@ const MemoriesProfile = async () => {
   return (
     <div className="flex justify-center items-center flex-col min-h-screen bg-orange-100 ">
       <GlowingStarsBackgroundCard>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 pt-10">
           <div className="w-[350px] md:w-[550px] shadow-lg h-fit outline-dashed outline-2  outline-gray-600 rounded-lg ">
             <div className="relative z-30 flex flex-col w-full items-center justify-center overflow-hidden rounded-lg  bg-background py-2 md:py-4 md:shadow-xl">
               <Meteors number={30} />

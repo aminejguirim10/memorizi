@@ -7,7 +7,7 @@ export default function MemoriesLayout({
 }>) {
   return (
     <main>
-      <div className="absolute inset-0">
+      <div className="absolute inset-x-0">
         <MemoriesNavbar />
       </div>
       {children}

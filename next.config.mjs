@@ -1,18 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "api.microlink.io", // Microlink Image Preview
-    ],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "assets.aceternity.com",
+        hostname: "api.microlink.io",
+      },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
       },
     ],
   },
   typescript: {
-    /* ignoreBuildErrors: true, */
+    ignoreBuildErrors: true,
   },
 };
 

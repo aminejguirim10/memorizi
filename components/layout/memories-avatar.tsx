@@ -10,11 +10,12 @@ import {
 import { getFallback } from "@/lib/utils";
 import { useSession, signOut } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 const MemoriesAvatar = () => {
   const { data: session } = useSession();
   return (
     <DropdownMenu>
-        {/* To make the events of the avatar */}
+      {/* To make the events of the avatar */}
       <DropdownMenuTrigger className="pointer-events-auto">
         <Avatar className="cursor-pointer size-10">
           <AvatarImage
@@ -30,16 +31,16 @@ const MemoriesAvatar = () => {
         <DropdownMenuLabel>{session?.user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="hover:cursor-pointer">
-          Memories
+          <Link href={"/memories"}> Memories</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="hover:cursor-pointer">
-          Create Memory
+          <Link href={"/create-memory"}>Create Memory</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="hover:cursor-pointer">
-          Dashboard
+          <Link href={"/dashboard"}>Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="hover:cursor-pointer">
-          Profile
+          <Link href={"/profile"}>Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="text-red-500 hover:cursor-pointer"
