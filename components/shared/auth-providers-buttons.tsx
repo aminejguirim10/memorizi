@@ -3,7 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { Icons } from "@/components/shared/icons";
-const AuthProvidersButtons = ({ text }: { text: string }) => {
+const AuthProvidersButtons = ({
+  text,
+  loading,
+}: {
+  text: string;
+  loading: boolean;
+}) => {
   return (
     <div className="flex flex-row max-sm:flex-col items-center justify-center  gap-4">
       <Button
@@ -12,6 +18,7 @@ const AuthProvidersButtons = ({ text }: { text: string }) => {
         onClick={() => {
           signIn("google");
         }}
+        disabled={loading}
       >
         <Icons.googleAuth className="w-6 h-6" />
         <span className="font-bold ">{text} with Google</span>
@@ -22,6 +29,7 @@ const AuthProvidersButtons = ({ text }: { text: string }) => {
         onClick={() => {
           signIn("github");
         }}
+        disabled={loading}
       >
         <Icons.githubAuth className="w-6 h-6" />
         <span className="font-bold ">{text} with Github</span>

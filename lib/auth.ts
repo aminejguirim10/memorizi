@@ -7,7 +7,6 @@ import prisma from "@/lib/db";
 import bcryptjs from "bcryptjs";
 
 type ExtendedUser = DefaultSession["user"] & {
-  isAdmin: boolean;
   id: string;
 };
 

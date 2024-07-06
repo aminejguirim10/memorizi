@@ -1,6 +1,4 @@
-import Link from "next/link";
 import AuthSignInForm from "@/components/form/auth-signin-form";
-import AuthProvidersButtons from "@/components/shared/auth-providers-buttons";
 import AuthBackButton from "@/components/shared/auth-back-button";
 
 export default function AuthSignIn() {
@@ -21,29 +19,6 @@ export default function AuthSignIn() {
           </p>
         </div>
         <AuthSignInForm />
-        <div className="mt-6 text-center text-sm">
-          <p className="text-gray-500 dark:text-gray-400">
-            Don't have an account?
-            <Link
-              className="font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500 ml-2"
-              href="/signup"
-            >
-              Sign Up
-            </Link>
-          </p>
-          <p className="mt-4 text-gray-500 dark:text-gray-400">
-            Forgot your password?
-            <Link
-              className="font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500 ml-2"
-              href="/forgot-password"
-            >
-              Reset password
-            </Link>
-          </p>
-        </div>
-        <div className="mt-6 border-t pt-6 max-md:pb-6">
-          <AuthProvidersButtons text="Sign in" />
-        </div>
       </div>
     </div>
   );

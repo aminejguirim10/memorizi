@@ -10,6 +10,7 @@ import { Container } from "@/components/ui/container";
 import { usePathname } from "next/navigation";
 import MemoriesAvatar from "@/components/layout/memories-avatar";
 import MemoriesBackButton from "@/components/layout/memories-back-button";
+import { User } from "@prisma/client";
 
 function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -176,7 +177,7 @@ function AvatarContainer({ className, ...props }: AvatarContainerProps) {
   );
 }
 
-export function MemoriesNavbar() {
+export function MemoriesNavbar({ user }: { user: User }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
@@ -314,7 +315,7 @@ export function MemoriesNavbar() {
                       transform: "var(--avatar-border-transform)",
                     }}
                   />
-                  {<MemoriesAvatar />}
+                  {<MemoriesAvatar user={user as any} />}
                 </div>
               </div>
             </Container>
@@ -340,7 +341,7 @@ export function MemoriesNavbar() {
                 <DesktopNavigation className="pointer-events-auto hidden md:block" />
               </div>
               <div className="flex flex-1 justify-end ">
-                {<MemoriesAvatar />}
+                {<MemoriesAvatar user={user as any} />}
               </div>
             </div>
           </Container>
