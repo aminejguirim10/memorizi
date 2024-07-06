@@ -1,9 +1,8 @@
 "use client";
 import Image from "next/image";
-import MemoriesPhotoOptions from "../shared/memories-photo-options";
+import MemoriesPhotoOptions from "@/components/shared/memories-photo-options";
 import { useState } from "react";
-import Link from "next/link";
-import { LinkPreview } from "../ui/link-preview";
+import { LinkPreview } from "@/components/ui/link-preview";
 const MemoriesMemoryCard = ({
   url,
   id,
