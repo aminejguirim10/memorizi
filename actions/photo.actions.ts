@@ -35,7 +35,7 @@ export const getPhotos = async () => {
       createdAt: true,
     },
     orderBy: {
-      createdAt: "asc",
+      createdAt: "desc",
     },
   });
   return photos;
@@ -54,6 +54,26 @@ export const deletePhoto = async (id: string) => {
     revalidatePath("/memories");
     revalidatePath("/dashboard");
     return { message: "Photo deleted", status: 200 };
+  } catch (error: any) {
+    return { message: error.message, status: 500 };
+  }
+};
+
+export const deleteMultiplePhotos = async (ids: string[]) => {
+  try {
+    const session = await ServerSession();
+    if (!session) return { message: "Unauthorized", status: 401 };
+    const photos = await prisma.photo.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+        userId: session.user.id,
+      },
+    });
+    revalidatePath("/memories");
+    revalidatePath("/dashboard");
+    return { message: "Photos deleted", status: 200 };
   } catch (error: any) {
     return { message: error.message, status: 500 };
   }

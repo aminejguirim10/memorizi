@@ -12,6 +12,7 @@ import {
   ArrowUpDown,
   Copy,
   Image,
+  Grip,
 } from "lucide-react";
 import { MdOutlineFacebook } from "react-icons/md";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin } from "react-icons/io";
@@ -42,4 +43,5 @@ export const Icons = {
   arrowUpDown: ArrowUpDown,
   copy: Copy,
   image: Image,
+  grip: Grip,
 };
