@@ -69,8 +69,17 @@ export const authOptions: AuthOptions = {
       if (account?.provider === "google" || account?.provider === "github") {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email! },
+          select: {
+            id: true,
+            accounts: true,
+          },
         });
         if (existingUser) {
+          for (const acc of existingUser.accounts) {
+            if (acc.provider === account.provider) {
+              return true; // Return true to allow sign in to continue
+            }
+          }
           await prisma.account.create({
             data: {
               userId: existingUser.id,
