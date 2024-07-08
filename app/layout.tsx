@@ -19,10 +19,11 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: `${process.env.NEXTAUTH_URL}`,
+    description: "Memorizi is a website for memorizing images and memories.",
     siteName: "Memorizi",
     images: [
       {
-        url: `${process.env.NEXTAUTH_URL}/assets/og-image.png`,
+        url: `${process.env.NEXTAUTH_URL}/assets/og.png`,
         width: 1200,
         height: 630,
         alt: "Memorizi",
