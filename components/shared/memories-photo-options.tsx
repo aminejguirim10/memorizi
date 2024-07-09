@@ -15,11 +15,15 @@ const MemoriesPhotoOptions = ({
   id,
   isDeleting,
   setIsDeleting,
+  table,
+  setTableData,
 }: {
   url: string;
   id: string;
   isDeleting: boolean;
   setIsDeleting: (value: boolean) => void;
+  table?: any;
+  setTableData?: React.Dispatch<React.SetStateAction<any[]>>;
 }) => {
   return (
     <div className="flex items-center justify-center ">
@@ -58,6 +62,8 @@ const MemoriesPhotoOptions = ({
             open={isDeleting}
             onOpenChange={setIsDeleting}
             id={id}
+            table={table}
+            setTableData={setTableData}
           />
         )}
       </DropdownMenu>

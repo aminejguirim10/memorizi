@@ -5,8 +5,6 @@ import { Icons } from "@/components/shared/icons";
 import { Button } from "@/components/ui/button";
 import { PhotoTable } from "@/types";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
-import MemoriesPhotoOptions from "@/components/shared/memories-photo-options";
 import { LinkPreview } from "@/components/ui/link-preview";
 export const columns: ColumnDef<PhotoTable>[] = [
   {
@@ -84,18 +82,6 @@ export const columns: ColumnDef<PhotoTable>[] = [
     id: "actions",
     header: () => {
       return <div className="flex justify-center">Actions</div>;
-    },
-    cell: ({ row }) => {
-      const photo = row.original;
-      const [isDeleting, setIsDeleting] = useState(false);
-      return (
-        <MemoriesPhotoOptions
-          id={photo.id}
-          url={photo.url}
-          isDeleting={isDeleting}
-          setIsDeleting={setIsDeleting}
-        />
-      );
     },
   },
 ];

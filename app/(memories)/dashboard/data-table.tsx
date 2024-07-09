@@ -45,7 +45,7 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
 import { deleteMultiplePhotos } from "@/actions/photo.actions";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import MemoriesPhotoOptions from "@/components/shared/memories-photo-options";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
   const [tableData, setTableData] = React.useState(data);
-  const router = useRouter();
+  const [isDeleting, setIsDeleting] = React.useState(false);
   const moveRow = (dragIndex: number, hoverIndex: number) => {
     const dragRow = tableData[dragIndex];
     const updatedData = [...tableData];
@@ -137,11 +137,27 @@ export function DataTable<TData, TValue>({
             <Icons.grip className="cursor-grab size-5 text-muted-foreground" />
           </div>
         </TableCell>
-        {row.getVisibleCells().map((cell: any) => (
-          <TableCell key={cell.id}>
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-          </TableCell>
-        ))}
+        {row.getVisibleCells().map((cell: any) => {
+          const photo = cell.row.original;
+          if (cell.id.includes("_actions"))
+            return (
+              <TableCell className="text-center">
+                <MemoriesPhotoOptions
+                  id={photo.id}
+                  url={photo.url}
+                  isDeleting={isDeleting}
+                  setIsDeleting={setIsDeleting}
+                  table={table}
+                  setTableData={setTableData}
+                />
+              </TableCell>
+            );
+          return (
+            <TableCell key={cell.id}>
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </TableCell>
+          );
+        })}
       </TableRow>
     );
   };

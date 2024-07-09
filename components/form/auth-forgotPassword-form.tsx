@@ -46,8 +46,12 @@ const AuthForgotPasswordForm = () => {
             variant: "destructive",
           });
         }
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
       } finally {
         setLoading(false);
       }
