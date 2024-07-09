@@ -141,7 +141,7 @@ export function DataTable<TData, TValue>({
           const photo = cell.row.original;
           if (cell.id.includes("_actions"))
             return (
-              <TableCell className="text-center">
+              <TableCell className="text-center" key={cell.id}>
                 <MemoriesPhotoOptions
                   id={photo.id}
                   url={photo.url}
