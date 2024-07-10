@@ -41,6 +41,7 @@ const MemoriesDashboard = async () => {
       date: new Date(photo.date).toLocaleDateString(),
     };
   });
+  console.log(photosUpdatedForFilter);
 
   const uploads = [
     {

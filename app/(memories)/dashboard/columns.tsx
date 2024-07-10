@@ -57,7 +57,7 @@ export const columns: ColumnDef<PhotoTable>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center justify-center  ">
-          {new Date(row.original.date).toLocaleDateString()}
+          {row.original.date.toLocaleString()}
         </div>
       );
     },
