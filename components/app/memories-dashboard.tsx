@@ -34,6 +34,14 @@ const MemoriesDashboard = async () => {
   const numberOfPhotosUploadedThisYear =
     countPhotosUploadedThisYear(photosUpdated);
 
+  // Fixing the date format for the table filter date
+  const photosUpdatedForFilter = photosUpdated.map((photo: any) => {
+    return {
+      ...photo,
+      date: new Date(photo.date).toLocaleDateString(),
+    };
+  });
+
   const uploads = [
     {
       title: "Images today",
@@ -75,7 +83,7 @@ const MemoriesDashboard = async () => {
       <div className="flex flex-col items-center gap-8  ">
         <HoverEffect items={uploads} />
         <div className="container mx-auto md:py-10">
-          <DataTable columns={columns} data={photosUpdated as any} />
+          <DataTable columns={columns} data={photosUpdatedForFilter} />
         </div>
         <MemoryLineChartsWeek data={photosPerDaysOfWeek} />
         <MemoryBarChartsDay data={photosPerDays} />
