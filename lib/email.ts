@@ -441,52 +441,51 @@ export const createNewUserTeamplate = (name: string) => {
               <tbody>
                 <tr>
                   <td>
-                    <a
-                      href="${process.env.NEXTAUTH_URL}"
-                      style="
-                        line-height: 100%;
-                        text-decoration: none;
-                        display: block;
-                        max-width: 100%;
-                        background-color: #fca33b;
-                        border-radius: 3px;
-                        color: #fff;
-                        font-size: 16px;
-                        text-align: center;
-                        padding: 12px 12px 12px 12px;
-                      "
-                      target="_blank"
-                      ><span
-                        ><!--[if mso
-                          ]><i
-                            style="
-                              letter-spacing: 12px;
-                              mso-font-width: -100%;
-                              mso-text-raise: 18;
-                            "
-                            hidden
-                            >&nbsp;</i
-                          ><!
-                        [endif]--></span
-                      ><span
-                        style="
-                          max-width: 100%;
-                          display: inline-block;
-                          line-height: 120%;
-                          mso-padding-alt: 0px;
-                          mso-text-raise: 9px;
-                        "
-                        >Get started</span
-                      ><span
-                        ><!--[if mso
-                          ]><i
-                            style="letter-spacing: 12px; mso-font-width: -100%"
-                            hidden
-                            >&nbsp;</i
-                          ><!
-                        [endif]--></span
-                      ></a
-                    >
+                   <a
+  href="${process.env.NEXTAUTH_URL}"
+  style="
+    line-height: 100%;
+    text-decoration: none;
+    display: block;
+    max-width: 100%;
+    background-color: #fca33b;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    padding: 12px;
+    color-scheme: light; /* Forces light mode */
+    -webkit-text-fill-color: #fff; /* Ensures text color remains white */
+    -webkit-background-clip: text; /* For background clipping */
+  "
+  target="_blank"
+>
+  <span
+    ><!--[if mso]><i
+      style="
+        letter-spacing: 12px;
+        mso-font-width: -100%;
+        mso-text-raise: 18;
+      "
+      hidden
+      >&nbsp;</i><!
+    [endif]--></span
+  >
+  <span
+    style="
+      max-width: 100%;
+      display: inline-block;
+      line-height: 120%;
+      mso-padding-alt: 0px;
+      mso-text-raise: 9px;
+    "
+    >Get started</span
+  >
+  <span
+    ><!--[if mso]><i style="letter-spacing: 12px; mso-font-width: -100%" hidden>&nbsp;</i><!
+    [endif]--></span
+  >
+</a>
                   </td>
                 </tr>
               </tbody>
