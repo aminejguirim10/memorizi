@@ -1,0 +1,100 @@
+---
+title: Sign Up
+description: Sign Up
+---
+
+This page guides you through the process of signing up for an account using various methods. We offer multiple sign-up options to ensure a seamless and secure experience for all users.
+
+This page is accessible on deployed site `https://memorizii.vercel.app/signup` or locally on `http://localhost:3000/signup`
+
+## Sign-Up Methods
+
+### 1. Email and Password
+
+Signing up with your username, email and password is a straightforward and secure method. Follow these steps:
+
+1. Navigate to the Sign-Up page.
+2. Enter your username.
+3. Enter your email address.
+4. Enter your password.
+5. Click the <span className="text-orange-400">Sign Up</span> button.
+
+![Email and Password Sign-Up](@/public/assets/docs/signup/fig1.png)
+If you forget your password, you can use the <span className="text-orange-700">Reset Password</span> link to reset it.
+
+The implementation of the email and password sign-up method is based on the `NextAuth` service with prisma adapter. The service provides a secure and efficient way to manage user authentication and authorization.
+
+### 2. Google Provider
+
+You can also sign up using your Google account. Follow these steps:
+
+1. Navigate to the Sign-Up page.
+2. Click the <span className="text-orange-400">Sign Up with Google</span> button.
+3. Select your Google account.
+4. Grant the necessary permissions.
+
+![Google Sign-Up](@/public/assets/docs/signup/fig2.png)
+
+The Google provider is a convenient option for users who prefer to sign up using their Google account. It simplifies the sign-up process and ensures a seamless experience for all users.
+
+Here is the code snippet for the Google provider:
+
+```tsx
+import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
+import { Icons } from "@/components/shared/icons";
+
+<Button
+  className="w-full flex gap-4"
+  variant={"outline"}
+  onClick={() => {
+    signIn("google");
+  }}
+>
+  <Icons.googleAuth className="w-6 h-6" />
+  <span className="font-bold ">Sign Up with Google</span>
+</Button>;
+```
+
+### 3. GitHub Provider
+
+Signing in with your GitHub account is another convenient option. Follow these steps:
+
+1. Navigate to the Sign-Up page.
+2. Click the <span className="text-orange-400">Sign Up with GitHub</span> button.
+3. Select your GitHub account.
+4. Grant the necessary permissions.
+
+![GitHub Sign-Up](@/public/assets/docs/signup/fig3.png)
+
+The GitHub provider is a popular choice for developers and users who prefer to sign up using their GitHub account. It simplifies the sign-up process and ensures a seamless experience for all users.
+
+Here is the code snippet for the GitHub provider:
+
+```tsx
+import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
+import { Icons } from "@/components/shared/icons";
+
+<Button
+  className="w-full flex gap-4"
+  variant={"outline"}
+  onClick={() => {
+    signIn("github");
+  }}
+>
+  <Icons.githubAuth className="w-6 h-6" />
+  <span className="font-bold ">Sign Up with Github</span>
+</Button>;
+```
+
+<div className="bg-yellow-100 dark:text-black py-1 px-4 rounded-lg ">
+  <span>⚠️</span> If an account is already created with an email address, sign
+  up with a provider{" "}
+  <span className="underline">(such as GitHub or Google)</span> that uses the
+  <span className="text-red-700">same email</span>
+  address will link to the existing account rather than creating a new one. This
+  ensures that all your sign-ups are associated with
+  <span className="text-red-700">a single user account</span>.
+</div>
+```

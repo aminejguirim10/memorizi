@@ -1,0 +1,12 @@
+{
+  "title": "Root Folder",
+  "pages": [
+    "index",
+    "getting-started",
+    "authentification",
+    "create-memories",
+    "user-dashboard",
+    "profile",
+    "contact"
+  ]
+}

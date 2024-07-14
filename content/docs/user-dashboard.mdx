@@ -1,0 +1,79 @@
+---
+title: User Dashboard
+description: User Dashboard
+---
+
+Welcome to your Memorizi User Dashboard page! This page allows you to view the details of your memories.
+
+This page is accessible on deployed site `https://memorizii.vercel.app/dashboard` or locally on `http://localhost:3000/dashboard`
+
+<div className="bg-yellow-100 dark:text-black py-1 px-4 rounded-lg ">
+  <span>⚠️</span> This page is only accessible to authenticated users. If you
+  are not logged in, you will be redirected to the login page.
+</div>
+
+## Features
+
+### Statistics
+
+The statistics section displays the total number of memories you have created today, this week, this month and this year.
+
+![Statistics](@/public/assets/docs/dashboard/fig1.png)
+
+### Dashboard Table
+
+The dashboard table displays all the memories you have created. You can view the details of each memmory like id, date and link for sharing.
+
+![DashboardTable](@/public/assets/docs/dashboard/fig2.png)
+
+#### Memory Options
+
+You can perform the following actions on each memory:
+
+- **View**: Click on the url in the link column to view the memory.
+- **Share**: Click on the share icon to copy the memory link to clipboard.
+- **Delete**: Click on the delete icon to delete the memory.
+- **Drag and Drop**: You can drag and drop the memories to reorder them using the drag icon.
+
+![MemoryOptions](@/public/assets/docs/dashboard/fig3.png)
+
+#### Filter Memories
+
+You can filter memories by date using the input field. Enter the date in the format `DD//MM/YYYY`.
+
+![FilterMemories](@/public/assets/docs/dashboard/fig4.png)
+
+#### Column Show/Hide
+
+You can show/hide columns by clicking on the column icon. You can select the columns you want to display.
+
+![ColumnShowHide](@/public/assets/docs/dashboard/fig5.png)
+
+#### Delete Multiple Memories
+
+You can delete multiple memories by selecting the checkbox in the table and clicking on the delete button.
+
+![DeleteMultipleMemories](@/public/assets/docs/dashboard/fig6.png)
+
+### Charts
+
+The charts section is a visual representation of the memories you have created. You can view the number of memories created each day, week and month.
+These charts were created using the `Chart.js` library.
+
+#### Charts by Day
+
+The chart displays the number of memories created each day of the week.
+
+![ChartsByDay](@/public/assets/docs/dashboard/fig7.png)
+
+#### Charts by Week
+
+The chart displays the number of memories created during the current week.
+
+![ChartsByWeek](@/public/assets/docs/dashboard/fig8.png)
+
+#### Charts by Month
+
+The chart displays the number of memories created each month of the year.
+
+![ChartsByMonth](@/public/assets/docs/dashboard/fig9.png)

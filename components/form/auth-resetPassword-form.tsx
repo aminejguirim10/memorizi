@@ -126,6 +126,7 @@ const AuthResetPasswordForm = ({
                     placeholder="**************"
                     {...field}
                     type={showPassword ? "text" : "password"}
+                    disabled={loading}
                   />
                   {showPassword ? (
                     <Icons.eyeSlash
@@ -149,6 +150,7 @@ const AuthResetPasswordForm = ({
         <ConfirmPassword
           confirmPassword={confirmPassword}
           setConfirmPassword={setConfirmPassword}
+          loading={loading}
         />
 
         <Button type="submit" disabled={loading} className="flex gap-3 w-full">
@@ -179,9 +181,11 @@ const AuthResetPasswordForm = ({
 const ConfirmPassword = ({
   confirmPassword,
   setConfirmPassword,
+  loading,
 }: {
   confirmPassword: string;
   setConfirmPassword: Dispatch<SetStateAction<string>>;
+  loading: boolean;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -193,6 +197,7 @@ const ConfirmPassword = ({
           type={showPassword ? "text" : "password"}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          disabled={loading}
         />
         {showPassword ? (
           <Icons.eyeSlash

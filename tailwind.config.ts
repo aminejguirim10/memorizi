@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { withUt } from "uploadthing/tw";
+import { createPreset } from "fumadocs-ui/tailwind-plugin";
 
 const config: Config = {
   darkMode: ["class"],
@@ -8,6 +9,9 @@ const config: Config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+    "./content/**/*.{md,mdx}",
+    "./mdx-components.{ts,tsx}",
+    "./node_modules/fumadocs-ui/dist/**/*.js",
   ],
   prefix: "",
   theme: {
@@ -95,6 +99,7 @@ const config: Config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  presets: [createPreset()],
 };
 
 export default withUt(config);

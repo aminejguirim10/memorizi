@@ -1,0 +1,94 @@
+---
+title: Create Memories
+description: Create Memories
+---
+
+Welcome to your Memorizi Create Memories page! This page allows you to create new memories.
+
+This page is accessible on deployed site `https://memorizii.vercel.app/create-memory` or locally on `http://localhost:3000/create-memory`
+
+<div className="bg-yellow-100 dark:text-black py-1 px-4 rounded-lg ">
+  <span>⚠️</span> This page is only accessible to authenticated users. If you
+  are not logged in, you will be redirected to the login page.
+</div>
+
+## Create Memory
+
+You can create a new memory or more by dragging and dropping the image or clicking on the image to upload a new image.
+The image will be displayed in the memory card. The upload logic is handled by the `react-dropzone` library with the `useDropzone` hook.
+It is a simple and easy-to-use library that allows you to drag and drop files or click to upload files. This was a combination with the `uploadthing` library to handle the image upload.
+
+![Create-Memory](@/public/assets/docs/create-memories/fig1.png)
+
+Here is some of the code snippet for the create memory upload image:
+
+```tsx
+import { useDropzone } from "@uploadthing/react";
+import { generateClientDropzoneAccept } from "uploadthing/client";
+import { useUploadThing } from "@/lib/uploadthing";
+import { useCallback, useState, useEffect } from "react";
+import { Icons } from "@/components/shared/icons";
+import { toast as useToast } from "@/hooks/use-toast";
+
+const MemoriesCreateMemoryUploadSection = () => {
+  const [files, setFiles] = useState<File[]>([]);
+  const [urls, setUrls] = useState<string[]>([]);
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
+  }, []);
+
+  const { startUpload, permittedFileInfo } = useUploadThing("imageUploader", {
+    onClientUploadComplete: async (res) => {
+      setUrls(res.map((file) => file.url));
+      setUrlsUpdated(true);
+    },
+    onUploadError: () => {
+      setLoading(false);
+      useToast({
+        title: "Upload Error",
+        description: "There was an error uploading the photos",
+        variant: "destructive",
+      });
+    },
+    onUploadBegin: () => {
+      toast("Uploading photo...", {
+        description: "The photo is beginning to be uploaded",
+      });
+    },
+  });
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: fileTypes ? generateClientDropzoneAccept(fileTypes) : undefined,
+  });
+
+  return (
+    <div className="mt-2 md:mt-3">
+      <div
+        {...getRootProps()}
+        className={`outline-dashed outline-2 py-2 md:py-4 outline-gray-400 rounded-lg cursor-pointer `}
+      >
+        <input {...getInputProps()} />
+        <div className="flex flex-col items-center gap-3">
+          <div className="flex flex-col gap-1 max-md:text-sm text-center text-muted-foreground">
+            <span>
+              Drag and drop your images here or click to select files.
+            </span>
+            <span className="text-sm max-md:text-xs text-orange-400">
+              Each photo must be less than 4 MB.
+            </span>
+          </div>
+          <Icons.uploadImage className="size-6 md:size-8 text-orange-400" />
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+<div className="bg-yellow-100 dark:text-black py-1 px-4 rounded-lg ">
+  <span>⚠️</span> You can only upload images that are less than{" "}
+  <span className="font-bold text-red-500">4MB</span> in size. You can also
+  upload a maximum of <span className="font-bold text-red-500">20</span> images
+  at a time.
+</div>

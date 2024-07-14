@@ -1,0 +1,99 @@
+---
+title: Profile
+description: Profile
+---
+
+Welcome to your Memorizi profile! This page allows you to manage your personal information, update your settings, and view your activity.
+
+This page is accessible on deployed site `https://memorizii.vercel.app/profile` or locally on `http://localhost:3000/profile`
+
+<div className="bg-yellow-100 dark:text-black py-1 px-4 rounded-lg ">
+  <span>⚠️</span> This page is only accessible to authenticated users. If you
+  are not logged in, you will be redirected to the login page.
+</div>
+
+## Personal Information
+
+You can update your personal information by clicking on the <span className="text-orange-400">Update</span> button. Here you can update your name, email, and profile picture.
+
+### Update Picture
+
+To update your profile picture, click on the <span className="text-orange-400">Image</span>. You can upload a new image.
+
+![Picture](@/public/assets/docs/profile/fig1.png)
+
+### Update Username
+
+To update your username, click on the <span className="text-orange-400">Username</span> field. You can enter a new username.
+
+![UserName](@/public/assets/docs/profile/fig2.png)
+
+### Update Bio
+
+To update your bio, click on the <span className="text-orange-400">Bio</span> field. You can enter a new bio.
+
+![Bio](@/public/assets/docs/profile/fig3.png)
+
+<div className="bg-gray-300 py-2 px-4 rounded-lg dark:text-black ">
+  <div className="flex  items-center gap-2">
+    <svg
+      className="text-blue-500 self-center"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-info size-5 fill-blue-500 text-card"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 16v-4"></path>
+      <path d="M12 8h.01"></path>
+    </svg>
+    <div>
+      {" "}
+      You can update more than one field at a time. Click the <span className="text-orange-400">
+        Update
+      </span> button to save your changes.
+    </div>
+  </div>
+</div>
+
+Here is the code snippet for the update user method in the actions folder:
+
+```tsx
+"use server";
+
+import prisma from "@/lib/db";
+import { ServerSession } from "@/lib/session";
+import { revalidatePath } from "next/cache";
+
+export const updateUser = async (
+  id: string,
+  name: string,
+  description: string,
+  image: string
+) => {
+  const session = await ServerSession();
+  if (!session) {
+    return { message: "Unauthorized", status: 401 };
+  }
+  try {
+    const user = await prisma.user.update({
+      where: { id },
+      data: {
+        name,
+        description,
+        image,
+      },
+    });
+    revalidatePath("/profile");
+    return { message: "User updated", status: 200 };
+  } catch (error: any) {
+    return { message: error.message, status: 500 };
+  }
+};
+```

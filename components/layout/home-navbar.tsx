@@ -122,13 +122,14 @@ export function HomeNavbar() {
                             <MobileNavLink href="/memories">
                               Memories
                             </MobileNavLink>
-                            <MobileNavLink href="#features">
+                            <MobileNavLink href="/#features">
                               Features
                             </MobileNavLink>
-                            <MobileNavLink href="#reviews">
+                            <MobileNavLink href="/#testimonials">
                               Testimonials
                             </MobileNavLink>
-                            <MobileNavLink href="#pricing">FAQs</MobileNavLink>
+                            <MobileNavLink href="/#faqs">FAQs</MobileNavLink>
+                            <MobileNavLink href="/docs">Docs</MobileNavLink>
                             <MobileNavLink href="/contact">
                               Contact
                             </MobileNavLink>

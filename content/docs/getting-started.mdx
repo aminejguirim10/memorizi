@@ -1,0 +1,73 @@
+---
+title: Getting Started
+description: Getting Started
+---
+
+Welcome to Memorizi! This guide will help you get started with using our platform, either by accessing the deployed site or setting up the project locally.
+
+## Using the Deployed Site
+
+You can start using Memorizi immediately by visiting our deployed site: [memorizii.vercel.app](https://memorizii.vercel.app/).
+
+## Cloning the Repository
+
+If you prefer to run Memorizi locally or want to contribute to the project, you can clone the repository from GitHub. Follow these steps to get started:
+
+### 1. 🖥️ Make sure you have the following installed on your machine
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en)
+- [npm](https://www.npmjs.com/) (Node Package Manager)
+
+### 2. 🌀 Clone the Repository
+
+```bash
+ git clone https://github.com/aminejguirim10/memorizi.git
+```
+
+### 3. 📁 Navigate to the project directory
+
+```bash
+ cd memorizi
+```
+
+### 4. ⚙️ Install the dependencies
+
+```bash
+npm install
+```
+
+### 5. ☁️ Configure environment variables
+
+Create a new file named .env in the root of your project and add the following content:
+
+```bash
+DATABASE_URL="your_mongodb_url"
+NEXTAUTH_SECRET="your_nextauth_secret"
+NEXTAUTH_URL="your_nextauth_url"
+
+GOOGLE_CLIENT_SECRET="your_google_client_secret"
+GOOGLE_CLIENT_ID="your_google_client_id"
+GITHUB_SECRET="your_github_secret"
+GITHUB_ID="your_github_id"
+
+UPLOADTHING_SECRET="your_uploadthing_secret"
+UPLOADTHING_APP_ID="your_uploadthing_app_id"
+
+NODE_MAILER_SECRET="your_node_mailer_secret"
+NODE_MAILER_AUTHOR_MAIL="your_node_mailer_author_mail"
+
+JWT_SECRET="your_jwt_secret"
+```
+
+### 6. 🚦 Start the development server
+
+```bash
+npm run dev
+```
+
+### 7. 🎯 Open your browser and visit
+
+```bash
+http://localhost:3000
+```
