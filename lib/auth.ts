@@ -5,7 +5,8 @@ import GitHubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/db";
 import bcryptjs from "bcryptjs";
-
+import nodemailer from "nodemailer";
+import { createNewUserTeamplate } from "./email";
 type ExtendedUser = DefaultSession["user"] & {
   id: string;
 };
@@ -15,6 +16,7 @@ declare module "next-auth" {
     user: ExtendedUser;
   }
 }
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma as any),
   session: { strategy: "jwt" },
@@ -95,6 +97,46 @@ export const authOptions: AuthOptions = {
               session_state: account.session_state,
             },
           });
+        } else {
+          // Create a new user
+          await prisma.user.create({
+            data: {
+              email: user.email!,
+              name: user.name!,
+              image: user.image!,
+              accounts: {
+                create: {
+                  type: account.type,
+                  provider: account.provider,
+                  providerAccountId: account.providerAccountId,
+                  refresh_token: account.refresh_token,
+                  access_token: account.access_token,
+                  expires_at: account.expires_at,
+                  token_type: account.token_type,
+                  scope: account.scope,
+                  id_token: account.id_token,
+                  session_state: account.session_state,
+                },
+              },
+            },
+          });
+          // Send welcome email
+          const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+              user: process.env.NODE_MAILER_AUTHOR_MAIL!,
+              pass: process.env.NODE_MAILER_SECRET!,
+            },
+          });
+          const mailOptions = {
+            from: process.env.NODE_MAILER_AUTHOR_MAIL!,
+            to: user.email!,
+            subject: "Welcome to Memorizi",
+            html: createNewUserTeamplate(user.name!),
+          };
+          await transporter.sendMail(mailOptions);
         }
       }
       return true; // Return true to allow sign in to continue
