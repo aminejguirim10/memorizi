@@ -570,7 +570,7 @@ export const contactUserTemplate = (
             <img
               alt="memorizi"
               height="50"
-              src="'${process.env.NEXTAUTH_URL}"
+              src="'${process.env.NEXTAUTH_URL}/assets/logo.png"
               style="
                 display: block;
                 outline: none;

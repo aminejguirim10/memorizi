@@ -22,7 +22,8 @@ Welcome to Memorizi, your personal haven for securely storing and cherishing you
 
 - **Frontend:** [Nextjs](https://nextjs.org/) , [TailwindCSS](https://tailwindcss.com/) , [TypeScript](https://www.typescriptlang.org/)
 - **Backend:** Next.js API Routes and Server actions
-- **Database:** [MongoD](https://www.mongodb.com/) with [Prisma](https://www.prisma.io/)
+- **Database:** [MongoDB](https://www.mongodb.com/)
+- **ORM:** [Prisma](https://www.prisma.io/)
 - **Authentication:** [NextAuth](https://next-auth.js.org/)
 
 ## 🖥️ Prerequisites
