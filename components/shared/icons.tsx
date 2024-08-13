@@ -13,12 +13,12 @@ import {
   Copy,
   Image,
   Grip,
-} from "lucide-react";
-import { MdOutlineFacebook } from "react-icons/md";
-import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin } from "react-icons/io";
-import { FaEye, FaGithub } from "react-icons/fa";
-import { FaEyeSlash, FaCloudArrowUp } from "react-icons/fa6";
-import { FcGoogle } from "react-icons/fc";
+} from "lucide-react"
+import { MdOutlineFacebook } from "react-icons/md"
+import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin } from "react-icons/io"
+import { FaEye, FaGithub } from "react-icons/fa"
+import { FaEyeSlash, FaCloudArrowUp } from "react-icons/fa6"
+import { FcGoogle } from "react-icons/fc"
 
 export const Icons = {
   chevronRight: ChevronRight,
@@ -44,4 +44,4 @@ export const Icons = {
   copy: Copy,
   image: Image,
   grip: Grip,
-};
+}

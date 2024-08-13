@@ -1,13 +1,13 @@
-import { Icons } from "@/components/shared/icons";
-import { buttonVariants } from "@/components/ui/button";
-import Image from "next/image";
-import Link from "next/link";
+import { Icons } from "@/components/shared/icons"
+import { buttonVariants } from "@/components/ui/button"
+import Image from "next/image"
+import Link from "next/link"
 const HomeCapture = () => {
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-      <div className="flex flex-col md:flex-row gap-10 md:gap-4">
-        <div className="md:w-1/2 flex flex-col gap-4  justify-center ">
-          <h1 className="text-4xl max-sm:text-2xl max-md:text-3xl font-bold text-[#FAC823]">
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+      <div className="flex flex-col gap-10 md:flex-row md:gap-4">
+        <div className="flex flex-col justify-center gap-4 md:w-1/2">
+          <h1 className="text-4xl font-bold text-[#FAC823] max-md:text-3xl max-sm:text-2xl">
             Capture and Share Your Precious Memories
           </h1>
           <p className="text-sm">
@@ -15,7 +15,7 @@ const HomeCapture = () => {
             providing you with convenient access and the ability to share them
             with loved ones.
           </p>
-          <div className="flex gap-4 my-2">
+          <div className="my-2 flex gap-4">
             <div className="flex flex-col gap-3">
               <h2 className="font-semibold">Easy Access</h2>
               <p className="text-sm text-muted-foreground">
@@ -45,7 +45,7 @@ const HomeCapture = () => {
               href={"/signup"}
               className={buttonVariants({
                 variant: "ghost",
-                className: "w-fit flex gap-2 items-center",
+                className: "flex w-fit items-center gap-2",
                 size: "sm",
               })}
             >
@@ -54,18 +54,18 @@ const HomeCapture = () => {
             </Link>
           </div>
         </div>
-        <div className="md:w-1/2 ">
+        <div className="md:w-1/2">
           <Image
             src={"/assets/img3.jpg"}
             alt="image"
-            height={200}
-            width={200}
-            className="w-full sm:h-[350px] rounded-2xl"
+            height={4500}
+            width={4500}
+            className="w-full rounded-2xl sm:h-[350px]"
           />
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default HomeCapture;
+export default HomeCapture

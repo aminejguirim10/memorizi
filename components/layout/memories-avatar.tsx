@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,12 +6,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { getFallback } from "@/lib/utils";
-import { signOut } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
-import { User } from "@prisma/client";
+} from "@/components/ui/dropdown-menu"
+import { getFallback } from "@/lib/utils"
+import { signOut } from "next-auth/react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from "next/link"
+import { User } from "@prisma/client"
 const MemoriesAvatar = ({ user }: { user: User }) => {
   // Hoping to make session.update() of next-auth work to update the user without
   // Making all routes of memories layout server-rendered on demond and make maximum
@@ -20,7 +20,7 @@ const MemoriesAvatar = ({ user }: { user: User }) => {
     <DropdownMenu>
       {/* To make the events of the avatar */}
       <DropdownMenuTrigger className="pointer-events-auto">
-        <Avatar className="cursor-pointer size-10">
+        <Avatar className="size-10 cursor-pointer">
           <AvatarImage
             src={user.image || `https://avatar.vercel.sh/${user.name}`}
           />
@@ -59,7 +59,7 @@ const MemoriesAvatar = ({ user }: { user: User }) => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-export default MemoriesAvatar;
+export default MemoriesAvatar

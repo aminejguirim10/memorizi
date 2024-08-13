@@ -1,8 +1,8 @@
-"use client";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+"use client"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { Button } from "@/components/ui/button"
 
 import {
   Form,
@@ -11,105 +11,105 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { toast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
-import { authResetPasswordSchema } from "@/lib/schema";
-import { Icons } from "@/components/shared/icons";
-import { resetPassword } from "@/actions/user.actions";
-import confetti from "canvas-confetti";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Dispatch, SetStateAction, useCallback, useState } from "react"
+import { toast } from "@/hooks/use-toast"
+import { useRouter } from "next/navigation"
+import { authResetPasswordSchema } from "@/lib/schema"
+import { Icons } from "@/components/shared/icons"
+import { resetPassword } from "@/actions/user.actions"
+import confetti from "canvas-confetti"
 
 const AuthResetPasswordForm = ({
   id,
   token,
 }: {
-  id: string;
-  token: string;
+  id: string
+  token: string
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const router = useRouter()
   const form = useForm<z.infer<typeof authResetPasswordSchema>>({
     resolver: zodResolver(authResetPasswordSchema),
     defaultValues: {
       password: "",
     },
-  });
+  })
 
   const handleClick = useCallback(() => {
-    const duration = 5 * 1000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-    const colors = ["#a786ff", "#fd8bbc", "#fac823", "#fb8f23"];
+    const duration = 5 * 1000
+    const animationEnd = Date.now() + duration
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
+    const colors = ["#a786ff", "#fd8bbc", "#fac823", "#fb8f23"]
 
     const randomInRange = (min: number, max: number) =>
-      Math.random() * (max - min) + min;
+      Math.random() * (max - min) + min
 
     const interval = window.setInterval(() => {
-      const timeLeft = animationEnd - Date.now();
+      const timeLeft = animationEnd - Date.now()
 
       if (timeLeft <= 0) {
-        return clearInterval(interval);
+        return clearInterval(interval)
       }
 
-      const particleCount = 50 * (timeLeft / duration);
+      const particleCount = 50 * (timeLeft / duration)
       confetti({
         ...defaults,
         particleCount,
         origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
         colors: colors,
-      });
+      })
       confetti({
         ...defaults,
         particleCount,
         origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
         colors: colors,
-      });
-    }, 250);
-  }, []);
+      })
+    }, 250)
+  }, [])
   function onSubmit(values: z.infer<typeof authResetPasswordSchema>) {
     const handleSubmit = async () => {
-      setLoading(true);
+      setLoading(true)
       try {
         if (values.password !== confirmPassword) {
           toast({
             title: "Password mismatch",
             description: "Password and Confirm password must match",
             variant: "destructive",
-          });
-          setLoading(false);
-          return;
+          })
+          setLoading(false)
+          return
         }
-        const response = await resetPassword(id, token, values.password);
+        const response = await resetPassword(id, token, values.password)
         if (response.status === 200) {
-          form.reset();
+          form.reset()
           toast({
             title: "Password updated",
             description: "Your password has been updated",
-          });
-          handleClick();
-          router.replace("/signin");
+          })
+          handleClick()
+          router.replace("/signin")
         } else {
           toast({
             title: "Error",
             description: response.message,
             variant: "destructive",
-          });
+          })
         }
       } catch (error: any) {
         toast({
           title: "Error",
           description: error.message,
           variant: "destructive",
-        });
+        })
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    handleSubmit();
+    }
+    handleSubmit()
   }
   return (
     <Form {...form}>
@@ -153,11 +153,11 @@ const AuthResetPasswordForm = ({
           loading={loading}
         />
 
-        <Button type="submit" disabled={loading} className="flex gap-3 w-full">
+        <Button type="submit" disabled={loading} className="flex w-full gap-3">
           {loading && (
             <svg
               aria-hidden="true"
-              className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600"
+              className="inline h-6 w-6 animate-spin fill-orange-600 text-gray-200 dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -176,18 +176,18 @@ const AuthResetPasswordForm = ({
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}
 const ConfirmPassword = ({
   confirmPassword,
   setConfirmPassword,
   loading,
 }: {
-  confirmPassword: string;
-  setConfirmPassword: Dispatch<SetStateAction<string>>;
-  loading: boolean;
+  confirmPassword: string
+  setConfirmPassword: Dispatch<SetStateAction<string>>
+  loading: boolean
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
   return (
     <div className="flex flex-col gap-3">
       <FormLabel className="font-bold">Confirm Your password</FormLabel>
@@ -212,7 +212,7 @@ const ConfirmPassword = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AuthResetPasswordForm;
+export default AuthResetPasswordForm

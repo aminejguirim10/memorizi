@@ -1,10 +1,10 @@
-import { cn } from "@/lib/utils";
-import Marquee from "@/components/ui/marquee";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { reviews } from "@/constants";
+import { cn } from "@/lib/utils"
+import Marquee from "@/components/ui/marquee"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import { reviews } from "@/constants"
 
-const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
+const firstRow = reviews.slice(0, reviews.length / 2)
+const secondRow = reviews.slice(reviews.length / 2)
 
 const ReviewCard = ({
   img,
@@ -12,10 +12,10 @@ const ReviewCard = ({
   username,
   body,
 }: {
-  img: string;
-  name: string;
-  username: string;
-  body: string;
+  img: string
+  name: string
+  username: string
+  body: string
 }) => {
   return (
     <figure
@@ -41,16 +41,16 @@ const ReviewCard = ({
           </p>
         </div>
       </div>
-      <blockquote className="mt-2 text-xs md:text-sm ">{body}</blockquote>
+      <blockquote className="mt-2 text-xs md:text-sm">{body}</blockquote>
     </figure>
-  );
-};
+  )
+}
 
 export const HomeTestimonials = () => {
   return (
     <section
       id="testimonials"
-      className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24"
+      className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
     >
       <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background py-10 md:py-20 md:shadow-xl">
         <Marquee pauseOnHover className="[--duration:20s]">
@@ -67,5 +67,5 @@ export const HomeTestimonials = () => {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
       </div>
     </section>
-  );
-};
+  )
+}

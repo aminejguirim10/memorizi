@@ -1,4 +1,4 @@
-import { deletePhoto } from "@/actions/photo.actions";
+import { deletePhoto } from "@/actions/photo.actions"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,8 +8,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { toast } from "sonner";
+} from "@/components/ui/alert-dialog"
+import { toast } from "sonner"
 
 export function MemoriesDeletePhoto({
   open,
@@ -18,11 +18,11 @@ export function MemoriesDeletePhoto({
   table,
   setTableData,
 }: {
-  id: string;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  table: any;
-  setTableData?: React.Dispatch<React.SetStateAction<any[]>>;
+  id: string
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  table: any
+  setTableData?: React.Dispatch<React.SetStateAction<any[]>>
 }) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -39,21 +39,21 @@ export function MemoriesDeletePhoto({
           <AlertDialogAction
             className="bg-red-600 hover:bg-red-500"
             onClick={async () => {
-              const response = await deletePhoto(id);
+              const response = await deletePhoto(id)
               if (response.status === 200) {
                 toast("Photo Deleted", {
                   description: "The photo has been deleted",
-                });
+                })
                 if (table && setTableData) {
                   const newData = table.options.data.filter(
                     (row: any) => row.id !== id
-                  );
-                  setTableData(newData);
+                  )
+                  setTableData(newData)
                 }
               } else {
                 toast("Error", {
                   description: response.message,
-                });
+                })
               }
             }}
           >
@@ -62,5 +62,5 @@ export function MemoriesDeletePhoto({
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  );
+  )
 }

@@ -1,19 +1,19 @@
-import { AuthOptions, DefaultSession } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "@/lib/db";
-import bcryptjs from "bcryptjs";
-import nodemailer from "nodemailer";
-import { createNewUserTeamplate } from "./email";
+import { AuthOptions, DefaultSession } from "next-auth"
+import Credentials from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google"
+import GitHubProvider from "next-auth/providers/github"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import prisma from "@/lib/db"
+import bcryptjs from "bcryptjs"
+import nodemailer from "nodemailer"
+import { createNewUserTeamplate } from "./email"
 type ExtendedUser = DefaultSession["user"] & {
-  id: string;
-};
+  id: string
+}
 
 declare module "next-auth" {
   interface Session {
-    user: ExtendedUser;
+    user: ExtendedUser
   }
 }
 
@@ -45,24 +45,24 @@ export const authOptions: AuthOptions = {
       },
       authorize: async (credentials) => {
         if (!credentials?.email || !credentials?.password) {
-          return null;
+          return null
         }
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
-        });
+        })
         if (!user || !user.password) {
-          return null;
+          return null
         }
 
         const isValid = await bcryptjs.compare(
           credentials.password,
           user?.password!
-        );
+        )
 
         if (!isValid) {
-          return null;
+          return null
         }
-        return user;
+        return user
       },
     }),
   ],
@@ -75,11 +75,11 @@ export const authOptions: AuthOptions = {
             id: true,
             accounts: true,
           },
-        });
+        })
         if (existingUser) {
           for (const acc of existingUser.accounts) {
             if (acc.provider === account.provider) {
-              return true; // Return true to allow sign in to continue
+              return true // Return true to allow sign in to continue
             }
           }
           await prisma.account.create({
@@ -96,7 +96,7 @@ export const authOptions: AuthOptions = {
               id_token: account.id_token,
               session_state: account.session_state,
             },
-          });
+          })
         } else {
           // Create a new user
           await prisma.user.create({
@@ -119,7 +119,7 @@ export const authOptions: AuthOptions = {
                 },
               },
             },
-          });
+          })
           // Send welcome email
           const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
@@ -129,37 +129,37 @@ export const authOptions: AuthOptions = {
               user: process.env.NODE_MAILER_AUTHOR_MAIL!,
               pass: process.env.NODE_MAILER_SECRET!,
             },
-          });
+          })
           const mailOptions = {
             from: process.env.NODE_MAILER_AUTHOR_MAIL!,
             to: user.email!,
             subject: "Welcome to Memorizi",
             html: createNewUserTeamplate(user.name!),
-          };
-          await transporter.sendMail(mailOptions);
+          }
+          await transporter.sendMail(mailOptions)
         }
       }
-      return true; // Return true to allow sign in to continue
+      return true // Return true to allow sign in to continue
     },
     jwt: ({ token, user }) => {
       if (user) {
-        const u = user as unknown as any;
+        const u = user as unknown as any
         return {
           ...token,
           id: u.id,
-        };
+        }
       }
-      return token;
+      return token
     },
     session: ({ session, token }) => {
       return {
         ...session,
         user: { ...session.user, id: token.id },
-      };
+      }
     },
   },
   secret: process.env.NEXTAUTH_SECRET!,
   pages: {
     signIn: "/signin",
   },
-};
+}

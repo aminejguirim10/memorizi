@@ -1,12 +1,12 @@
-"use client";
-import Link from "next/link";
-import { Popover } from "@headlessui/react";
-import { AnimatePresence, motion } from "framer-motion";
+"use client"
+import Link from "next/link"
+import { Popover } from "@headlessui/react"
+import { AnimatePresence, motion } from "framer-motion"
 
-import { buttonVariants } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
+import { buttonVariants } from "@/components/ui/button"
+import { Container } from "@/components/ui/container"
 
-import { NavLinks } from "@/components/layout/home-navLinks";
+import { NavLinks } from "@/components/layout/home-navLinks"
 
 function MenuIcon(props: any) {
   return (
@@ -18,7 +18,7 @@ function MenuIcon(props: any) {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }
 
 function ChevronUpIcon(props: any) {
@@ -31,19 +31,19 @@ function ChevronUpIcon(props: any) {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }
 
-import { ReactNode } from "react";
-import Image from "next/image";
+import { ReactNode } from "react"
+import Image from "next/image"
 
 function MobileNavLink({
   children,
   href,
   ...props
 }: {
-  children: ReactNode;
-  href: string;
+  children: ReactNode
+  href: string
 }) {
   return (
     <Popover.Button
@@ -54,7 +54,7 @@ function MobileNavLink({
     >
       {children}
     </Popover.Button>
-  );
+  )
 }
 
 export function HomeNavbar() {
@@ -64,12 +64,12 @@ export function HomeNavbar() {
         <Container className="relative z-50 flex justify-between py-8">
           <div className="relative z-10 flex items-center gap-16">
             <Link href="/" aria-label="Home">
-              <div className="flex items-center text-sm font-bold gap-2">
+              <div className="flex items-center gap-2 text-sm font-bold">
                 <Image
                   src={"/assets/logo.png"}
                   alt="logo"
-                  width={25}
-                  height={25}
+                  width={200}
+                  height={200}
                   className="h-10 w-auto"
                 />
                 <span>Memorizi</span>
@@ -178,5 +178,5 @@ export function HomeNavbar() {
         </Container>
       </nav>
     </header>
-  );
+  )
 }

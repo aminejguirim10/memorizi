@@ -1,20 +1,20 @@
-"use client";
-import { Disclosure } from "@headlessui/react";
-import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
-import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
-import { faqs } from "@/constants";
+"use client"
+import { Disclosure } from "@headlessui/react"
+import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline"
+import { buttonVariants } from "@/components/ui/button"
+import Link from "next/link"
+import { faqs } from "@/constants"
 
 export default function HomeFaqs() {
   return (
     <div id="faqs">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8  ">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
           <div className="space-y-4">
-            <h2 className="text-4xl max-sm:text-2xl max-md:text-3xl font-bold leading-10 tracking-tight text-[#FA6923]">
+            <h2 className="text-4xl font-bold leading-10 tracking-tight text-[#FA6923] max-md:text-3xl max-sm:text-2xl">
               Frequently asked questions
             </h2>
-            <p className="max-sm:text-sm text-muted-foreground">
+            <p className="text-muted-foreground max-sm:text-sm">
               Find answers to common questions about our platform and services.
             </p>
           </div>
@@ -55,10 +55,10 @@ export default function HomeFaqs() {
             ))}
           </dl>
           <div className="flex flex-col gap-5 pt-14">
-            <h1 className="text-4xl max-sm:text-2xl max-md:text-3xl font-bold">
+            <h1 className="text-4xl font-bold max-md:text-3xl max-sm:text-2xl">
               Still have questions?
             </h1>
-            <p className="max-sm:text-sm text-muted-foreground">
+            <p className="text-muted-foreground max-sm:text-sm">
               Contact us for further assistance.
             </p>
             <Link
@@ -74,5 +74,5 @@ export default function HomeFaqs() {
         </div>
       </div>
     </div>
-  );
+  )
 }

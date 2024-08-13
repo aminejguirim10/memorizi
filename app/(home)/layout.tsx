@@ -1,10 +1,10 @@
-import HomeFooter from "@/components/layout/home-footer";
-import { HomeNavbar } from "@/components/layout/home-navbar";
+import HomeFooter from "@/components/layout/home-footer"
+import { HomeNavbar } from "@/components/layout/home-navbar"
 
 export default function HomeLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <main>
@@ -12,5 +12,5 @@ export default function HomeLayout({
       {children}
       <HomeFooter />
     </main>
-  );
+  )
 }

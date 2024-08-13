@@ -1,12 +1,12 @@
-import MemoriesDashboard from "@/components/app/memories-dashboard";
-import { Metadata } from "next";
+import MemoriesDashboard from "@/components/app/memories-dashboard"
+import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Your dashboard.",
-};
+}
 const DashboardPage = async () => {
-  return <MemoriesDashboard />;
-};
+  return <MemoriesDashboard />
+}
 
-export default DashboardPage;
+export default DashboardPage

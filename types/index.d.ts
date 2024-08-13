@@ -1,5 +1,5 @@
 export type PhotoTable = {
-  id: string;
-  url: string;
-  date: Date;
-};
+  id: string
+  url: string
+  date: Date
+}

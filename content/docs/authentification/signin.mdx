@@ -39,20 +39,19 @@ The Google provider is a convenient option for users who prefer to sign in using
 Here is the code snippet for the Google provider:
 
 ```tsx
-import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
-import { Icons } from "@/components/shared/icons";
-
-<Button
-  className="w-full flex gap-4"
+import { Button } from "@/components/ui/button"
+import { signIn } from "next-auth/react"
+import { Icons } from "@/components/shared/icons"
+;<Button
+  className="flex w-full gap-4"
   variant={"outline"}
   onClick={() => {
-    signIn("google");
+    signIn("google")
   }}
 >
-  <Icons.googleAuth className="w-6 h-6" />
-  <span className="font-bold ">Sign In with Google</span>
-</Button>;
+  <Icons.googleAuth className="h-6 w-6" />
+  <span className="font-bold">Sign In with Google</span>
+</Button>
 ```
 
 ### 3. GitHub Provider
@@ -71,23 +70,22 @@ The GitHub provider is a convenient option for users who prefer to sign in using
 Here is the code snippet for the GitHub provider:
 
 ```tsx
-import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
-import { Icons } from "@/components/shared/icons";
-
-<Button
-  className="w-full flex gap-4"
+import { Button } from "@/components/ui/button"
+import { signIn } from "next-auth/react"
+import { Icons } from "@/components/shared/icons"
+;<Button
+  className="flex w-full gap-4"
   variant={"outline"}
   onClick={() => {
-    signIn("github");
+    signIn("github")
   }}
 >
-  <Icons.githubAuth className="w-6 h-6" />
-  <span className="font-bold ">Sign Up with Github</span>
-</Button>;
+  <Icons.githubAuth className="h-6 w-6" />
+  <span className="font-bold">Sign Up with Github</span>
+</Button>
 ```
 
-<div className="bg-yellow-100 dark:text-black py-1 px-4 rounded-lg ">
+<div className="rounded-lg bg-yellow-100 px-4 py-1 dark:text-black">
   <span>⚠️</span> If an account is already created with an email address,
   signing in with a provider{" "}
   <span className="underline">(such as GitHub or Google)</span> that uses the

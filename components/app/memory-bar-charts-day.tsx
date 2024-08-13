@@ -1,12 +1,12 @@
-"use client";
-import { useEffect } from "react";
-import { Chart } from "chart.js";
+"use client"
+import { useEffect } from "react"
+import { Chart } from "chart.js"
 
 function MemoryBarChartsDay({ data }: { data: Number[] }) {
   useEffect(() => {
     var ctx = (
       document.getElementById("myChartBar") as HTMLCanvasElement
-    ).getContext("2d");
+    ).getContext("2d")
     if (ctx) {
       var myChart = new Chart(ctx, {
         type: "bar",
@@ -30,24 +30,24 @@ function MemoryBarChartsDay({ data }: { data: Number[] }) {
             },
           ],
         },
-      });
+      })
     }
-  }, [data]); //data is the prop passed to the component to render the chart in case of change in data
+  }, [data]) //data is the prop passed to the component to render the chart in case of change in data
 
   return (
     <>
       {/* Bar chart */}
-      <h1 className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 max-sm:-mt-[250px] max-md:-mt-[200px] mt-10 font-bold text-xl md:text-2xl capitalize text-[#FB8F23] max-md:text-center ">
+      <h1 className="mx-auto mt-10 max-w-7xl px-4 text-xl font-bold capitalize text-[#FB8F23] max-md:-mt-[200px] max-md:text-center max-sm:-mt-[250px] sm:px-6 md:text-2xl lg:px-8">
         Bar chart of Images uploaded by day of week
       </h1>
-      <div className="mx-auto  max-w-7xl px-4 sm:px-6 lg:px-8  h-screen flex my-auto max-sm:-mt-[250px] max-md:-mt-[200px] md:-mt-[100px] w-full">
-        <div className="border border-gray-400 pt-0 rounded-xl  max-sm:w-[350px] max-md:w-[600px]  w-full h-fit my-auto  shadow-xl">
+      <div className="mx-auto my-auto flex h-screen w-full max-w-7xl px-4 max-md:-mt-[200px] max-sm:-mt-[250px] sm:px-6 md:-mt-[100px] lg:px-8">
+        <div className="my-auto h-fit w-full rounded-xl border border-gray-400 pt-0 shadow-xl max-md:w-[600px] max-sm:w-[350px]">
           {/* Canva id must be unique if you have multiple Charts */}
           <canvas id="myChartBar"></canvas>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default MemoryBarChartsDay;
+export default MemoryBarChartsDay

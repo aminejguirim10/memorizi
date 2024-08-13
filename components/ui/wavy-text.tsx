@@ -1,19 +1,19 @@
-"use client";
+"use client"
 
-import { useMemo } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useMemo } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
 interface WavyTextProps {
-  word: string;
-  className?: string;
+  word: string
+  className?: string
   variant?: {
-    hidden: { y: number };
-    visible: { y: number };
-  };
-  duration?: number;
-  delay?: number;
+    hidden: { y: number }
+    visible: { y: number }
+  }
+  duration?: number
+  delay?: number
 }
 const WavyText = ({
   word,
@@ -25,9 +25,9 @@ const WavyText = ({
   const defaultVariants = {
     hidden: { y: 10 },
     visible: { y: -10 },
-  };
-  const combinedVariants = variant || defaultVariants;
-  const characters = useMemo(() => word.split(""), [word]);
+  }
+  const combinedVariants = variant || defaultVariants
+  const characters = useMemo(() => word.split(""), [word])
   return (
     <div className="flex justify-center space-x-2 overflow-hidden p-3">
       <AnimatePresence>
@@ -45,7 +45,7 @@ const WavyText = ({
             }}
             className={cn(
               className,
-              "font-display text-center  font-bold text-4xl max-sm:text-2xl max-md:text-3xl tracking-[-0.15em] "
+              "font-display text-center text-4xl font-bold tracking-[-0.15em] max-md:text-3xl max-sm:text-2xl"
             )}
           >
             {char}
@@ -53,7 +53,7 @@ const WavyText = ({
         ))}
       </AnimatePresence>
     </div>
-  );
-};
+  )
+}
 
-export default WavyText;
+export default WavyText

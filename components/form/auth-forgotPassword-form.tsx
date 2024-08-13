@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { Button } from "@/components/ui/button"
 
 import {
   Form,
@@ -12,51 +12,51 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { toast } from "@/hooks/use-toast";
-import { authForgotPasswordSchema } from "@/lib/schema";
-import { forgotPassword } from "@/actions/user.actions";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import { toast } from "@/hooks/use-toast"
+import { authForgotPasswordSchema } from "@/lib/schema"
+import { forgotPassword } from "@/actions/user.actions"
 
 const AuthForgotPasswordForm = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof authForgotPasswordSchema>>({
     resolver: zodResolver(authForgotPasswordSchema),
     defaultValues: {
       email: "",
     },
-  });
+  })
 
   function onSubmit(values: z.infer<typeof authForgotPasswordSchema>) {
     const handleSubmit = async () => {
-      setLoading(true);
+      setLoading(true)
       try {
-        const response = await forgotPassword(values.email);
+        const response = await forgotPassword(values.email)
         if (response.status === 200) {
-          form.reset();
+          form.reset()
           toast({
             title: "Email sent",
             description: "Check your email for a link to reset your password",
-          });
+          })
         } else {
           toast({
             title: "Error",
             description: response.message,
             variant: "destructive",
-          });
+          })
         }
       } catch (error: any) {
         toast({
           title: "Error",
           description: error.message,
           variant: "destructive",
-        });
+        })
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    handleSubmit();
+    }
+    handleSubmit()
   }
   return (
     <Form {...form}>
@@ -76,16 +76,16 @@ const AuthForgotPasswordForm = () => {
                 />
               </FormControl>
               {form.formState.errors.email && (
-                <FormMessage className="text-xs " />
+                <FormMessage className="text-xs" />
               )}
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={loading} className="flex gap-3 w-full">
+        <Button type="submit" disabled={loading} className="flex w-full gap-3">
           {loading && (
             <svg
               aria-hidden="true"
-              className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600"
+              className="inline h-6 w-6 animate-spin fill-orange-600 text-gray-200 dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +104,7 @@ const AuthForgotPasswordForm = () => {
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default AuthForgotPasswordForm;
+export default AuthForgotPasswordForm

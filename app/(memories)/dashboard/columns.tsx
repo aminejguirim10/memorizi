@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import { ColumnDef } from "@tanstack/react-table";
-import { Icons } from "@/components/shared/icons";
-import { Button } from "@/components/ui/button";
-import { PhotoTable } from "@/types";
-import { Checkbox } from "@/components/ui/checkbox";
-import { LinkPreview } from "@/components/ui/link-preview";
+import { ColumnDef } from "@tanstack/react-table"
+import { Icons } from "@/components/shared/icons"
+import { Button } from "@/components/ui/button"
+import { PhotoTable } from "@/types"
+import { Checkbox } from "@/components/ui/checkbox"
+import { LinkPreview } from "@/components/ui/link-preview"
 export const columns: ColumnDef<PhotoTable>[] = [
   {
     id: "select",
@@ -29,21 +29,21 @@ export const columns: ColumnDef<PhotoTable>[] = [
   {
     accessorKey: "id",
     header: () => {
-      return <div className="flex justify-center">ID</div>;
+      return <div className="flex justify-center">ID</div>
     },
     cell: ({ row }) => {
       return (
-        <div className="flex items-center justify-center truncatebg-red-500">
+        <div className="truncatebg-red-500 flex items-center justify-center">
           {row.original.id}
         </div>
-      );
+      )
     },
   },
   {
     accessorKey: "date",
     header: ({ column }) => {
       return (
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
@@ -52,36 +52,36 @@ export const columns: ColumnDef<PhotoTable>[] = [
             <Icons.arrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         </div>
-      );
+      )
     },
     cell: ({ row }) => {
       return (
-        <div className="flex items-center justify-center  ">
+        <div className="flex items-center justify-center">
           {row.original.date.toLocaleString()}
         </div>
-      );
+      )
     },
   },
   {
     accessorKey: "url",
     header: () => {
-      return <div className="flex justify-center">Link</div>;
+      return <div className="flex justify-center">Link</div>
     },
     cell: ({ row }) => {
       return (
         <LinkPreview
-          className="flex items-center justify-center truncate "
+          className="flex items-center justify-center truncate"
           url={row.original.url}
         >
           {row.original.url}
         </LinkPreview>
-      );
+      )
     },
   },
   {
     id: "actions",
     header: () => {
-      return <div className="flex justify-center">Actions</div>;
+      return <div className="flex justify-center">Actions</div>
     },
   },
-];
+]

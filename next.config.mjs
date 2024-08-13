@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 
-import createMDX from "fumadocs-mdx/config";
+import createMDX from "fumadocs-mdx/config"
 
-const withMDX = createMDX();
+const withMDX = createMDX()
 
 const nextConfig = {
   images: {
@@ -20,6 +20,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-};
+}
 
-export default withMDX(nextConfig);
+export default withMDX(nextConfig)

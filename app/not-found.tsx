@@ -1,12 +1,12 @@
-import HomeFooter from "@/components/layout/home-footer";
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import HomeFooter from "@/components/layout/home-footer"
+import { ChevronRightIcon } from "@heroicons/react/20/solid"
 import {
   PhotoIcon,
   PlusIcon,
   TableCellsIcon,
   UserCircleIcon,
-} from "@heroicons/react/24/solid";
-import Link from "next/link";
+} from "@heroicons/react/24/solid"
+import Link from "next/link"
 const links = [
   {
     name: "Memories",
@@ -32,7 +32,7 @@ const links = [
     description: "Your account’s configuration.",
     icon: UserCircleIcon,
   },
-];
+]
 
 export default function Example() {
   return (
@@ -101,5 +101,5 @@ export default function Example() {
       </main>
       <HomeFooter />
     </div>
-  );
+  )
 }

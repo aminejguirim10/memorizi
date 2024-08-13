@@ -1,5 +1,5 @@
-import { type BaseLayoutProps, type DocsLayoutProps } from "fumadocs-ui/layout";
-import { pageTree } from "@/app/source";
+import { type BaseLayoutProps, type DocsLayoutProps } from "fumadocs-ui/layout"
+import { pageTree } from "@/app/source"
 
 // shared configuration
 export const baseOptions: BaseLayoutProps = {
@@ -13,10 +13,10 @@ export const baseOptions: BaseLayoutProps = {
       active: "nested-url",
     },
   ],
-};
+}
 
 // docs layout configuration
 export const docsOptions: DocsLayoutProps = {
   ...baseOptions,
   tree: pageTree,
-};
+}

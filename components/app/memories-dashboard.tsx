@@ -1,7 +1,7 @@
-import { columns } from "@/app/(memories)/dashboard/columns";
-import { DataTable } from "@/app/(memories)/dashboard/data-table";
-import { HoverEffect } from "@/components/ui/card-hover-efferct";
-import { getPhotos } from "@/actions/photo.actions";
+import { columns } from "@/app/(memories)/dashboard/columns"
+import { DataTable } from "@/app/(memories)/dashboard/data-table"
+import { HoverEffect } from "@/components/ui/card-hover-efferct"
+import { getPhotos } from "@/actions/photo.actions"
 import {
   countPhotosUploadedThisMonth,
   countPhotosUploadedThisWeek,
@@ -10,37 +10,37 @@ import {
   getPhotoCountsByDayOfWeek,
   getPhotoCountsByDays,
   getPhotoCountsByMonths,
-} from "@/lib/utils";
-import WavyText from "@/components/ui/wavy-text";
-import LetterPullup from "@/components/ui/letter-pullup";
-import MemoryLineChartsWeek from "@/components/app/memory-line-charts-week";
-import MemoryBarChartsDay from "@/components/app/memory-bar-charts-day";
-import MemoryBarChartsMonth from "@/components/app/memory-bar-charts-month";
+} from "@/lib/utils"
+import WavyText from "@/components/ui/wavy-text"
+import LetterPullup from "@/components/ui/letter-pullup"
+import MemoryLineChartsWeek from "@/components/app/memory-line-charts-week"
+import MemoryBarChartsDay from "@/components/app/memory-bar-charts-day"
+import MemoryBarChartsMonth from "@/components/app/memory-bar-charts-month"
 
 const MemoriesDashboard = async () => {
-  const photos: any = await getPhotos();
+  const photos: any = await getPhotos()
   const photosUpdated = photos.map((photo: any) => {
     return {
       id: photo.id,
       url: photo.url,
       date: new Date(photo.createdAt),
-    };
-  });
-  const numberOfPhotosUploadedToday = countPhotosUploadedToday(photosUpdated);
+    }
+  })
+  const numberOfPhotosUploadedToday = countPhotosUploadedToday(photosUpdated)
   const numberOfPhotosUploadedThisWeek =
-    countPhotosUploadedThisWeek(photosUpdated);
+    countPhotosUploadedThisWeek(photosUpdated)
   const numberOfPhotosUploadedThisMonth =
-    countPhotosUploadedThisMonth(photosUpdated);
+    countPhotosUploadedThisMonth(photosUpdated)
   const numberOfPhotosUploadedThisYear =
-    countPhotosUploadedThisYear(photosUpdated);
+    countPhotosUploadedThisYear(photosUpdated)
 
   // Fixing the date format for the table filter date
   const photosUpdatedForFilter = photosUpdated.map((photo: any) => {
     return {
       ...photo,
       date: new Date(photo.date).toLocaleDateString(),
-    };
-  });
+    }
+  })
 
   const uploads = [
     {
@@ -65,14 +65,13 @@ const MemoriesDashboard = async () => {
       description: `Throughout the year, your efforts have resulted in the successful upload of ${numberOfPhotosUploadedThisYear} image(s), each contributing to the ongoing progress and achievements of our project.`,
       color: "#4E90A5",
     },
-  ];
-  const photosPerDays: Number[] = getPhotoCountsByDays(photosUpdated);
-  const photosPerDaysOfWeek: Number[] =
-    getPhotoCountsByDayOfWeek(photosUpdated);
-  const photosPerMonth: Number[] = getPhotoCountsByMonths(photosUpdated);
+  ]
+  const photosPerDays: Number[] = getPhotoCountsByDays(photosUpdated)
+  const photosPerDaysOfWeek: Number[] = getPhotoCountsByDayOfWeek(photosUpdated)
+  const photosPerMonth: Number[] = getPhotoCountsByMonths(photosUpdated)
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-[80px]">
+    <div className="mx-auto max-w-7xl px-4 pt-[80px] sm:px-6 lg:px-8">
       <div className="flex flex-col items-center justify-center pt-8 md:pt-12">
         <WavyText word="Dashboard" className="text-[#FB8F23]" />
         <LetterPullup
@@ -80,7 +79,7 @@ const MemoriesDashboard = async () => {
           delay={0.05}
         />
       </div>
-      <div className="flex flex-col items-center gap-8  ">
+      <div className="flex flex-col items-center gap-8">
         <HoverEffect items={uploads} />
         <div className="container mx-auto md:py-10">
           <DataTable columns={columns} data={photosUpdatedForFilter} />
@@ -90,7 +89,7 @@ const MemoriesDashboard = async () => {
         <MemoryBarChartsMonth data={photosPerMonth} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MemoriesDashboard;
+export default MemoriesDashboard

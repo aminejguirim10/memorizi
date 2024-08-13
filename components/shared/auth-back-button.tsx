@@ -1,11 +1,11 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { Icons } from "@/components/shared/icons";
+"use client"
+import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
+import { Icons } from "@/components/shared/icons"
 const AuthBackButton = () => {
-  const router = useRouter();
+  const router = useRouter()
   return (
-    <div className=" relative lg:absolute lg:left-16 py-4 ">
+    <div className="relative py-4 lg:absolute lg:left-16">
       <Button
         variant={"outline"}
         className="flex gap-2"
@@ -15,7 +15,7 @@ const AuthBackButton = () => {
         <span>Back</span>
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default AuthBackButton;
+export default AuthBackButton

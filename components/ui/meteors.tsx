@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import clsx from "clsx";
-import { useEffect, useState } from "react";
+import clsx from "clsx"
+import { useEffect, useState } from "react"
 
 interface MeteorsProps {
-  number?: number;
+  number?: number
 }
 export const Meteors = ({ number = 20 }: MeteorsProps) => {
   const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>(
     []
-  );
+  )
 
   useEffect(() => {
     const styles = [...new Array(number)].map(() => ({
@@ -17,9 +17,9 @@ export const Meteors = ({ number = 20 }: MeteorsProps) => {
       left: Math.floor(Math.random() * window.innerWidth) + "px",
       animationDelay: Math.random() * 1 + 0.2 + "s",
       animationDuration: Math.floor(Math.random() * 8 + 2) + "s",
-    }));
-    setMeteorStyles(styles);
-  }, [number]);
+    }))
+    setMeteorStyles(styles)
+  }, [number])
 
   return (
     <>
@@ -37,7 +37,7 @@ export const Meteors = ({ number = 20 }: MeteorsProps) => {
         </span>
       ))}
     </>
-  );
-};
+  )
+}
 
-export default Meteors;
+export default Meteors

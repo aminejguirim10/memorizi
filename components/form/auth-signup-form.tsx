@@ -1,11 +1,11 @@
-"use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
-import { authSignUpSchema } from "@/lib/schema";
-import { Button } from "@/components/ui/button";
+"use client"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { useRouter } from "next/navigation"
+import { useCallback, useState } from "react"
+import { authSignUpSchema } from "@/lib/schema"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -13,19 +13,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Icons } from "@/components/shared/icons";
-import { createUser } from "@/actions/user.actions";
-import { toast } from "@/hooks/use-toast";
-import confetti from "canvas-confetti";
-import Link from "next/link";
-import AuthProvidersButtons from "@/components/shared/auth-providers-buttons";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Icons } from "@/components/shared/icons"
+import { createUser } from "@/actions/user.actions"
+import { toast } from "@/hooks/use-toast"
+import confetti from "canvas-confetti"
+import Link from "next/link"
+import AuthProvidersButtons from "@/components/shared/auth-providers-buttons"
 
 const AuthSignUpForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const form = useForm<z.infer<typeof authSignUpSchema>>({
     resolver: zodResolver(authSignUpSchema),
     defaultValues: {
@@ -33,14 +33,14 @@ const AuthSignUpForm = () => {
       email: "",
       password: "",
     },
-  });
+  })
 
   const handleClick = useCallback(() => {
-    const end = Date.now() + 3 * 1000; // 3 seconds
-    const colors = ["#a786ff", "#fd8bbc", "#fac823", "#fb8f23"];
+    const end = Date.now() + 3 * 1000 // 3 seconds
+    const colors = ["#a786ff", "#fd8bbc", "#fac823", "#fb8f23"]
 
     const frame = () => {
-      if (Date.now() > end) return;
+      if (Date.now() > end) return
 
       confetti({
         particleCount: 4,
@@ -49,7 +49,7 @@ const AuthSignUpForm = () => {
         startVelocity: 60,
         origin: { x: 0, y: 0.5 },
         colors: colors,
-      });
+      })
       confetti({
         particleCount: 4,
         angle: 120,
@@ -57,42 +57,42 @@ const AuthSignUpForm = () => {
         startVelocity: 60,
         origin: { x: 1, y: 0.5 },
         colors: colors,
-      });
+      })
 
-      requestAnimationFrame(frame);
-    };
+      requestAnimationFrame(frame)
+    }
 
-    frame();
-  }, []);
+    frame()
+  }, [])
   function onSubmit(values: z.infer<typeof authSignUpSchema>) {
     const handleSubmit = async () => {
-      setLoading(true);
+      setLoading(true)
       const response = await createUser(
         values.email,
         values.username,
         values.password
-      );
+      )
 
       if (response.status === 201) {
-        handleClick();
-        router.push("/signin");
+        handleClick()
+        router.push("/signin")
       } else if (response.status === 400) {
         toast({
           title: "Error creating account",
           description: response.message,
           variant: "destructive",
-        });
-        setLoading(false);
+        })
+        setLoading(false)
       } else {
         toast({
           title: "Error creating account",
           description: "Please try again",
           variant: "destructive",
-        });
-        setLoading(false);
+        })
+        setLoading(false)
       }
-    };
-    handleSubmit();
+    }
+    handleSubmit()
   }
   return (
     <Form {...form}>
@@ -175,12 +175,12 @@ const AuthSignUpForm = () => {
             type="submit"
             variant={"auth"}
             disabled={loading}
-            className="flex gap-3 w-full"
+            className="flex w-full gap-3"
           >
             {loading && (
               <svg
                 aria-hidden="true"
-                className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600"
+                className="inline h-6 w-6 animate-spin fill-orange-600 text-gray-200 dark:text-gray-600"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +202,7 @@ const AuthSignUpForm = () => {
           <p className="text-gray-500 dark:text-gray-400">
             Already have an account?
             <Link
-              className="font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500 ml-2"
+              className="ml-2 font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500"
               href="/signin"
             >
               Sign In
@@ -211,7 +211,7 @@ const AuthSignUpForm = () => {
           <p className="mt-4 text-gray-500 dark:text-gray-400">
             Forgot your password?
             <Link
-              className="font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500 ml-2"
+              className="ml-2 font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500"
               href="/forgot-password"
             >
               Reset password
@@ -223,7 +223,7 @@ const AuthSignUpForm = () => {
         </div>
       </div>
     </Form>
-  );
-};
+  )
+}
 
-export default AuthSignUpForm;
+export default AuthSignUpForm

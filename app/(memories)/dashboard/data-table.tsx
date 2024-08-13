@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import * as React from "react"
+import { DndProvider, useDrag, useDrop } from "react-dnd"
+import { HTML5Backend } from "react-dnd-html5-backend"
 import {
   ColumnDef,
   flexRender,
@@ -14,7 +14,7 @@ import {
   ColumnFiltersState,
   getFilteredRowModel,
   VisibilityState,
-} from "@tanstack/react-table";
+} from "@tanstack/react-table"
 import {
   Table,
   TableBody,
@@ -22,13 +22,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/table"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -39,45 +39,45 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/shared/icons";
-import { deleteMultiplePhotos } from "@/actions/photo.actions";
-import { toast } from "sonner";
-import MemoriesPhotoOptions from "@/components/shared/memories-photo-options";
+} from "@/components/ui/alert-dialog"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Icons } from "@/components/shared/icons"
+import { deleteMultiplePhotos } from "@/actions/photo.actions"
+import { toast } from "sonner"
+import MemoriesPhotoOptions from "@/components/shared/memories-photo-options"
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
 }
 
 interface DragItem {
-  index: number;
-  id: string;
-  type: string;
+  index: number
+  id: string
+  type: string
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  );
+  )
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [tableData, setTableData] = React.useState(data);
-  const [isDeleting, setIsDeleting] = React.useState(false);
+    React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
+  const [tableData, setTableData] = React.useState(data)
+  const [isDeleting, setIsDeleting] = React.useState(false)
   const moveRow = (dragIndex: number, hoverIndex: number) => {
-    const dragRow = tableData[dragIndex];
-    const updatedData = [...tableData];
-    updatedData.splice(dragIndex, 1);
-    updatedData.splice(hoverIndex, 0, dragRow);
-    setTableData(updatedData);
-  };
+    const dragRow = tableData[dragIndex]
+    const updatedData = [...tableData]
+    updatedData.splice(dragIndex, 1)
+    updatedData.splice(hoverIndex, 0, dragRow)
+    setTableData(updatedData)
+  }
 
   const table = useReactTable({
     data: tableData,
@@ -96,49 +96,49 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
     },
-  });
+  })
 
   const Row = ({ index, row }: { index: number; row: any }) => {
-    const ref = React.useRef<HTMLTableRowElement>(null);
+    const ref = React.useRef<HTMLTableRowElement>(null)
     const [{ isDragging }, drag, preview] = useDrag({
       type: "row",
       item: { index },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
-    });
+    })
     const [, drop] = useDrop({
       accept: "row",
       hover: (item: DragItem) => {
         if (!ref.current) {
-          return;
+          return
         }
-        const dragIndex = item.index;
-        const hoverIndex = index;
+        const dragIndex = item.index
+        const hoverIndex = index
         if (dragIndex === hoverIndex) {
-          return;
+          return
         }
-        moveRow(dragIndex, hoverIndex);
-        item.index = hoverIndex;
+        moveRow(dragIndex, hoverIndex)
+        item.index = hoverIndex
       },
-    });
-    drag(drop(ref));
+    })
+    drag(drop(ref))
     return (
       <TableRow
         ref={ref}
         style={{ opacity: isDragging ? 0.5 : 1 }}
         data-state={row.getIsSelected() && "selected"}
       >
-        <TableCell className="flex items-center justify-center mt-1">
+        <TableCell className="mt-1 flex items-center justify-center">
           <div
             ref={preview as any}
-            className="flex justify-center items-center"
+            className="flex items-center justify-center"
           >
-            <Icons.grip className="cursor-grab size-5 text-muted-foreground" />
+            <Icons.grip className="size-5 cursor-grab text-muted-foreground" />
           </div>
         </TableCell>
         {row.getVisibleCells().map((cell: any) => {
-          const photo = cell.row.original;
+          const photo = cell.row.original
           if (cell.id.includes("_actions"))
             return (
               <TableCell className="text-center" key={cell.id}>
@@ -151,39 +151,39 @@ export function DataTable<TData, TValue>({
                   setTableData={setTableData}
                 />
               </TableCell>
-            );
+            )
           return (
             <TableCell key={cell.id}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </TableCell>
-          );
+          )
         })}
       </TableRow>
-    );
-  };
+    )
+  }
 
   const deleteSelectedRows = async () => {
-    const selectedRows = table.getSelectedRowModel().flatRows;
-    const selectedIds = selectedRows.map((row: any) => row.original.id);
-    const response = await deleteMultiplePhotos(selectedIds);
+    const selectedRows = table.getSelectedRowModel().flatRows
+    const selectedIds = selectedRows.map((row: any) => row.original.id)
+    const response = await deleteMultiplePhotos(selectedIds)
     if (response.status === 200) {
       toast("Photos Deleted", {
         description: "The photos have been deleted",
-      });
+      })
       // Filter out the deleted rows
       const updatedTableData = tableData.filter(
         (row: any) => !selectedIds.includes(row.id)
-      );
-      setTableData(updatedTableData);
+      )
+      setTableData(updatedTableData)
 
       // Refresh the table state
-      table.resetRowSelection();
+      table.resetRowSelection()
     } else {
       toast("Error", {
         description: response.message,
-      });
+      })
     }
-  };
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -220,12 +220,12 @@ export function DataTable<TData, TValue>({
                       {column.id === "id"
                         ? "ID"
                         : column.id === "date"
-                        ? "Date"
-                        : column.id === "url"
-                        ? "Link"
-                        : column.id}
+                          ? "Date"
+                          : column.id === "url"
+                            ? "Link"
+                            : column.id}
                     </DropdownMenuCheckboxItem>
-                  );
+                  )
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
@@ -236,7 +236,7 @@ export function DataTable<TData, TValue>({
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {/* Header of the Drag column */}
-                  <TableHead className="flex justify-end items-center" />
+                  <TableHead className="flex items-center justify-end" />
                   {headerGroup.headers.map((header) => {
                     if (header.id !== "actions") {
                       return (
@@ -248,14 +248,14 @@ export function DataTable<TData, TValue>({
                                 header.getContext()
                               )}
                         </TableHead>
-                      );
+                      )
                     } else
                       return (
                         <TableHead
                           key={header.id}
                           className={`${
                             Object.keys(rowSelection).length > 0 &&
-                            " space-y-[2px] py-1"
+                            "space-y-[2px] py-1"
                           }`}
                         >
                           {header.isPlaceholder
@@ -270,7 +270,7 @@ export function DataTable<TData, TValue>({
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  className="flex items-center justify-center ml-[15px]"
+                                  className="ml-[15px] flex items-center justify-center"
                                 >
                                   <Icons.trash className="mr-2 size-5 text-red-500" />
                                   <span className="text-red-500">
@@ -302,7 +302,7 @@ export function DataTable<TData, TValue>({
                             </AlertDialog>
                           )}
                         </TableHead>
-                      );
+                      )
                   })}
                 </TableRow>
               ))}
@@ -351,5 +351,5 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
     </DndProvider>
-  );
+  )
 }

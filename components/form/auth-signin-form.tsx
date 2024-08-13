@@ -1,12 +1,12 @@
-"use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { authSignInSchema } from "@/lib/schema";
-import { signIn } from "next-auth/react";
-import { Button } from "@/components/ui/button";
+"use client"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { authSignInSchema } from "@/lib/schema"
+import { signIn } from "next-auth/react"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -14,44 +14,44 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Icons } from "@/components/shared/icons";
-import { toast } from "@/hooks/use-toast";
-import Link from "next/link";
-import AuthProvidersButtons from "@/components/shared/auth-providers-buttons";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Icons } from "@/components/shared/icons"
+import { toast } from "@/hooks/use-toast"
+import Link from "next/link"
+import AuthProvidersButtons from "@/components/shared/auth-providers-buttons"
 
 const AuthSignInForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const form = useForm<z.infer<typeof authSignInSchema>>({
     resolver: zodResolver(authSignInSchema),
     defaultValues: {
       email: "",
       password: "",
     },
-  });
+  })
   function onSubmit(values: z.infer<typeof authSignInSchema>) {
     const handleSubmit = async () => {
-      setLoading(true);
+      setLoading(true)
       const response = await signIn("credentials", {
         email: values.email,
         password: values.password,
         redirect: false,
-      });
+      })
       if (response?.ok) {
-        router.push("/memories");
+        router.push("/memories")
       } else {
         toast({
           title: "Invalid email or incorrect Password",
           description: "Please try again",
           variant: "destructive",
-        });
-        setLoading(false);
+        })
+        setLoading(false)
       }
-    };
-    handleSubmit();
+    }
+    handleSubmit()
   }
   return (
     <Form {...form}>
@@ -114,12 +114,12 @@ const AuthSignInForm = () => {
             type="submit"
             variant={"auth"}
             disabled={loading}
-            className="flex gap-3 w-full"
+            className="flex w-full gap-3"
           >
             {loading && (
               <svg
                 aria-hidden="true"
-                className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600"
+                className="inline h-6 w-6 animate-spin fill-orange-600 text-gray-200 dark:text-gray-600"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +141,7 @@ const AuthSignInForm = () => {
           <p className="text-gray-500 dark:text-gray-400">
             Don't have an account?
             <Link
-              className="font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500 ml-2"
+              className="ml-2 font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500"
               href="/signup"
             >
               Sign Up
@@ -150,7 +150,7 @@ const AuthSignInForm = () => {
           <p className="mt-4 text-gray-500 dark:text-gray-400">
             Forgot your password?
             <Link
-              className="font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500 ml-2"
+              className="ml-2 font-medium text-gray-900 underline-offset-4 hover:underline dark:text-gray-500"
               href="/forgot-password"
             >
               Reset password
@@ -162,7 +162,7 @@ const AuthSignInForm = () => {
         </div>
       </div>
     </Form>
-  );
-};
+  )
+}
 
-export default AuthSignInForm;
+export default AuthSignInForm

@@ -164,8 +164,8 @@ export const resetPasswordTemplate = (link: string) => {
       </tbody>
     </table>
   </body>
-</html>`;
-};
+</html>`
+}
 
 export const resetPasswordCompletedTemplate = (link: string, name: string) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -362,8 +362,8 @@ export const resetPasswordCompletedTemplate = (link: string, name: string) => {
     </table>
   </body>
 </html>
-`;
-};
+`
+}
 
 export const createNewUserTeamplate = (name: string) => {
   return `
@@ -517,8 +517,8 @@ export const createNewUserTeamplate = (name: string) => {
     </table>
   </body>
 </html>
-`;
-};
+`
+}
 
 export const contactUserTemplate = (
   firstName: string,
@@ -624,5 +624,5 @@ export const contactUserTemplate = (
     </table>
   </body>
 </html>
-`;
-};
+`
+}

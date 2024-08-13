@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
 interface LetterPullupProps {
-  className?: string;
-  words: string;
-  delay?: number;
+  className?: string
+  words: string
+  delay?: number
 }
 
 export default function LetterPullup({
@@ -15,7 +15,7 @@ export default function LetterPullup({
   words,
   delay,
 }: LetterPullupProps) {
-  const letters = words.split("");
+  const letters = words.split("")
 
   const pullupVariant = {
     initial: { y: 100, opacity: 0 },
@@ -26,7 +26,7 @@ export default function LetterPullup({
         delay: i * (delay ? delay : 0.05), // By default, delay each letter's animation by 0.05 seconds
       },
     }),
-  };
+  }
 
   return (
     <div className="flex justify-center">
@@ -38,7 +38,7 @@ export default function LetterPullup({
           animate="animate"
           custom={i}
           className={cn(
-            "font-display text-xl max-md:text-xs max-w-lg text-muted-foreground text-center font-bold -mt-4 md:-mt-8 tracking-[-0.02em] drop-shadow-sm dark:text-white  md:leading-[5rem]",
+            "font-display -mt-4 max-w-lg text-center text-xl font-bold tracking-[-0.02em] text-muted-foreground drop-shadow-sm dark:text-white max-md:text-xs md:-mt-8 md:leading-[5rem]",
             className
           )}
         >
@@ -46,5 +46,5 @@ export default function LetterPullup({
         </motion.h1>
       ))}
     </div>
-  );
+  )
 }

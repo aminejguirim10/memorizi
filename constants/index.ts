@@ -1,4 +1,4 @@
-import { Icons } from "@/components/shared/icons";
+import { Icons } from "@/components/shared/icons"
 
 export const HomeFeaturesItems = [
   {
@@ -47,7 +47,7 @@ export const HomeFeaturesItems = [
     buttonTitle: "Explore Now",
     link: "/",
   },
-];
+]
 
 export const reviews = [
   {
@@ -92,7 +92,7 @@ export const reviews = [
     body: "I'm so glad I found this website. It's perfect for preserving my precious memories.",
     img: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
   },
-];
+]
 
 export const faqs = [
   {
@@ -115,4 +115,4 @@ export const faqs = [
     answer:
       "If you need assistance, you can reach our support team through the contact information provided.",
   },
-];
+]

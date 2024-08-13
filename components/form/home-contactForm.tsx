@@ -1,8 +1,8 @@
-"use client";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+"use client"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -10,21 +10,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/hooks/use-toast";
-import { useCallback, useState } from "react";
-import { homeContactSchema } from "@/lib/schema";
-import { contactUser } from "@/actions/user.actions";
-import confetti from "canvas-confetti";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { toast } from "@/hooks/use-toast"
+import { useCallback, useState } from "react"
+import { homeContactSchema } from "@/lib/schema"
+import { contactUser } from "@/actions/user.actions"
+import confetti from "canvas-confetti"
 const HomeContactForm = () => {
   const handleClick = useCallback(() => {
-    const end = Date.now() + 3 * 1000; // 3 seconds
-    const colors = ["#a786ff", "#fd8bbc", "#fac823", "#fb8f23"];
+    const end = Date.now() + 3 * 1000 // 3 seconds
+    const colors = ["#a786ff", "#fd8bbc", "#fac823", "#fb8f23"]
 
     const frame = () => {
-      if (Date.now() > end) return;
+      if (Date.now() > end) return
 
       confetti({
         particleCount: 4,
@@ -33,7 +33,7 @@ const HomeContactForm = () => {
         startVelocity: 60,
         origin: { x: 0, y: 0.5 },
         colors: colors,
-      });
+      })
       confetti({
         particleCount: 4,
         angle: 120,
@@ -41,14 +41,14 @@ const HomeContactForm = () => {
         startVelocity: 60,
         origin: { x: 1, y: 0.5 },
         colors: colors,
-      });
+      })
 
-      requestAnimationFrame(frame);
-    };
+      requestAnimationFrame(frame)
+    }
 
-    frame();
-  }, []);
-  const [loading, setLoading] = useState(false);
+    frame()
+  }, [])
+  const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof homeContactSchema>>({
     resolver: zodResolver(homeContactSchema),
     defaultValues: {
@@ -58,9 +58,9 @@ const HomeContactForm = () => {
       message: "",
       subject: "",
     },
-  });
+  })
   async function onSubmit(values: z.infer<typeof homeContactSchema>) {
-    setLoading(true);
+    setLoading(true)
     try {
       const response = await contactUser(
         values.firstName,
@@ -68,29 +68,29 @@ const HomeContactForm = () => {
         values.email,
         values.subject,
         values.message
-      );
+      )
 
       if (response.status === 200) {
-        handleClick();
+        handleClick()
         toast({
           title: "Email sent",
           description: "Your email has been sent successfully",
-        });
+        })
       } else {
-        setLoading(false);
+        setLoading(false)
         toast({
           title: "Email not sent",
           description: "Your email has not been sent successfully",
-        });
+        })
       }
     } catch (error) {
       toast({
         title: "Email not sent",
         description: "Your email has not been sent successfully",
-      });
+      })
     } finally {
-      setLoading(false);
-      form.reset();
+      setLoading(false)
+      form.reset()
     }
   }
 
@@ -98,7 +98,7 @@ const HomeContactForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="-mb-10 md:-mb-4 max-w-7xl mx-auto py-4 px-6 flex flex-col gap-4 "
+        className="mx-auto -mb-10 flex max-w-7xl flex-col gap-4 px-6 py-4 md:-mb-4"
       >
         <div
           className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
@@ -112,7 +112,7 @@ const HomeContactForm = () => {
             }}
           ></div>
         </div>
-        <div className="flex flex-col sm:flex-row justify-between gap-4 ">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row">
           <FormField
             control={form.control}
             name="firstName"
@@ -187,13 +187,13 @@ const HomeContactForm = () => {
 
         <Button
           type="submit"
-          className="flex gap-3 w-full my-5 text-white"
+          className="my-5 flex w-full gap-3 text-white"
           disabled={loading}
         >
           {loading && (
             <svg
               aria-hidden="true"
-              className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600"
+              className="inline h-6 w-6 animate-spin fill-orange-600 text-gray-200 dark:text-gray-600"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +212,7 @@ const HomeContactForm = () => {
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default HomeContactForm;
+export default HomeContactForm
